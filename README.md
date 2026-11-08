@@ -5,7 +5,12 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/sakinator/PerkLens/releases/latest"><img src="https://img.shields.io/badge/Download-PerkLens%20v1.0.0%20APK-00E676?style=for-the-badge&logo=android&logoColor=black" alt="Download APK"/></a>
+</p>
+
+<p align="center">
   <a href="https://github.com/sakinator/PerkLens/actions/workflows/build-apk.yml"><img src="https://img.shields.io/github/actions/workflow/status/sakinator/PerkLens/build-apk.yml?style=flat-square&logo=github&label=APK%20Build" alt="Build Status"/></a>
+  <img src="https://img.shields.io/badge/Regression%20Suite-35%2F35%20Passed-00FF87?style=flat-square" alt="Regression Suite"/>
   <img src="https://img.shields.io/badge/Theme-Dark%20%26%20Neon%20Green-00E676?style=flat-square" alt="Theme"/>
   <img src="https://img.shields.io/badge/Security-Zero%20KYC%20%7C%20Local%20Keys%20Only-00FF87?style=flat-square" alt="Security"/>
   <img src="https://img.shields.io/badge/Platform-Android%20%28Kotlin%20%2B%20Compose%29-10B981?style=flat-square" alt="Android"/>
@@ -25,7 +30,7 @@ The **PerkLens** brand features a sleek **Dark & Cyber Neon Green** modern desig
 3. **The Rounded `%` Geometry**: High-contrast geometric percentage emblem with a rounded pill diagonal slash and dual hollow rings.
 4. **Obsidian Base**: Deep OLED black squircle frame matching the user's mobile security portfolio styling.
 
-* **Vector Asset:** [`assets/perklens_logo.svg`](assets/perklens_logo.svg) | [`app/src/main/res/drawable/perklens_logo.svg`](app/src/main/res/drawable/perklens_logo.svg)
+* **Vector Asset:** [`assets/perklens_logo.svg`](assets/perklens_logo.svg) | Android VectorDrawable: [`app/src/main/res/drawable/ic_perklens_logo.xml`](app/src/main/res/drawable/ic_perklens_logo.xml)
 
 ---
 
