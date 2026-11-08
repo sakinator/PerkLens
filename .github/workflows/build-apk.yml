@@ -42,15 +42,18 @@ jobs:
 
       - name: Install and Provision Gradle 8.5
         run: |
-          echo "Provisioning Gradle 8.5 (AGP 8.2 compatibility) without external cache dependency..."
-          curl -fsSL --retry 5 --retry-delay 2 --connect-timeout 15 https://services.gradle.org/distributions/gradle-8.5-bin.zip -o /tmp/gradle-8.5-bin.zip || wget -q https://services.gradle.org/distributions/gradle-8.5-bin.zip -P /tmp
-          sudo unzip -q -o /tmp/gradle-8.5-bin.zip -d /opt
-          sudo ln -sf /opt/gradle-8.5/bin/gradle /usr/local/bin/gradle
-          /opt/gradle-8.5/bin/gradle --version
+          echo "Provisioning Gradle 8.5 with resilient multi-mirror fallback..."
+          curl -fsSL --connect-timeout 8 --max-time 20 https://services.gradle.org/distributions/gradle-8.5-bin.zip -o /tmp/gradle-8.5-bin.zip \
+            || curl -fsSL --connect-timeout 8 --max-time 35 https://mirrors.cloud.tencent.com/gradle/gradle-8.5-bin.zip -o /tmp/gradle-8.5-bin.zip
+          if [ -f /tmp/gradle-8.5-bin.zip ]; then
+            sudo unzip -q -o /tmp/gradle-8.5-bin.zip -d /opt
+            sudo ln -sf /opt/gradle-8.5/bin/gradle /usr/local/bin/gradle
+          fi
+          gradle --version
 
       - name: Build Release APK with Permanent Keystore Signature
         run: |
-          /opt/gradle-8.5/bin/gradle assembleRelease --stacktrace
+          gradle assembleRelease --stacktrace
 
       - name: Locate and Prepare APK Artifact
         run: |
