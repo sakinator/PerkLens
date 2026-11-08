@@ -40,10 +40,24 @@ jobs:
         run: |
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-      - name: Setup Gradle
+      - name: Setup Gradle via Action
         uses: gradle/actions/setup-gradle@v3
+        continue-on-error: true
         with:
-          gradle-version: '8.5'
+          gradle-version: '8.6'
+          cache-disabled: true
+
+      - name: Ensure Gradle 8.x is Ready
+        run: |
+          if ! command -v gradle &> /dev/null; then
+            echo "Gradle not in PATH, downloading Gradle 8.6..."
+            wget -q https://services.gradle.org/distributions/gradle-8.6-bin.zip -O /tmp/gradle.zip || \
+            curl -sSL https://downloads.gradle.org/distributions/gradle-8.6-bin.zip -o /tmp/gradle.zip
+            sudo unzip -q -d /opt /tmp/gradle.zip
+            echo "/opt/gradle-8.6/bin" >> $GITHUB_PATH
+            export PATH="/opt/gradle-8.6/bin:$PATH"
+          fi
+          gradle --version
 
       - name: Build Android APK
         run: gradle assembleDebug --stacktrace
