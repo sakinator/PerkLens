@@ -45,7 +45,8 @@ fun MainScreen(
     categoryOffersRepo: CategoryOffersRepository,
     smsSyncManager: SmsSyncManager? = null,
     gmailSyncManager: GmailSyncManager? = null,
-    diagnosticsLogger: AppDiagnosticsLogManager? = null
+    diagnosticsLogger: AppDiagnosticsLogManager? = null,
+    liveWebDiscoveryManager: io.perklens.core.ai.LiveWebCardDiscoveryManager? = null
 ) {
     var selectedTab by remember { mutableStateOf<NavItem>(NavItem.Wallet) }
 
@@ -131,7 +132,8 @@ fun MainScreen(
                 is NavItem.Discover -> DiscoverScreen(
                     cardRepo = cardRepo,
                     walletRepo = walletRepo,
-                    aiSettings = aiSettings
+                    aiSettings = aiSettings,
+                    liveWebDiscoveryManager = liveWebDiscoveryManager
                 )
                 is NavItem.Advisor -> AiAdvisorScreen(
                     cardRepo = cardRepo,

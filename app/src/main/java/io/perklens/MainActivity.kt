@@ -37,13 +37,16 @@ class MainActivity : ComponentActivity() {
         val aiSettings = AiSettingsRepository(applicationContext)
         val smsSyncManager = SmsSyncManager(applicationContext, walletRepository, cardRepository)
         val gmailSyncManager = GmailSyncManager(applicationContext)
+        val liveWebDiscoveryManager = io.perklens.core.ai.LiveWebCardDiscoveryManager(applicationContext, diagnosticsLogger)
 
         // As soon as the app launches look for all updates on cards new cards from all sources
+        // In background: query remote catalog mirrors + live network feeds (RuPay, Visa, Mastercard, Bank feeds)
         // Once update is complete, show a toast notification "cards and offers database updated"
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val updated = syncManager.syncLatestCatalog()
-                if (updated) {
+                val mirrorUpdated = syncManager.syncLatestCatalog()
+                val liveInternetUpdated = liveWebDiscoveryManager.syncLiveInternetUpdatesOnStartup(cardRepository, aiSettings)
+                if (mirrorUpdated || liveInternetUpdated) {
                     cardRepository.reloadCatalog()
                     withContext(Dispatchers.Main) {
                         Toast.makeText(applicationContext, "cards and offers database updated", Toast.LENGTH_SHORT).show()
@@ -69,7 +72,8 @@ class MainActivity : ComponentActivity() {
                         categoryOffersRepo = categoryOffersRepository,
                         smsSyncManager = smsSyncManager,
                         gmailSyncManager = gmailSyncManager,
-                        diagnosticsLogger = diagnosticsLogger
+                        diagnosticsLogger = diagnosticsLogger,
+                        liveWebDiscoveryManager = liveWebDiscoveryManager
                     )
                 }
             }

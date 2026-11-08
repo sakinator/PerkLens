@@ -56,6 +56,58 @@ class CardRepository(
         }
     }
 
+    @Synchronized
+    fun saveCatalogToCache(container: CardCatalogContainer): Boolean {
+        return try {
+            val file = File(context.filesDir, "cards_catalog_cached.json")
+            val jsonString = gson.toJson(container)
+            file.writeText(jsonString)
+            cachedCatalog = container
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    @Synchronized
+    fun addOrUpdateCard(card: Card): Boolean {
+        val current = getCatalog()
+        val updatedCards = current.cards.toMutableList()
+        val index = updatedCards.indexOfFirst { it.id == card.id }
+        if (index >= 0) {
+            updatedCards[index] = card
+        } else {
+            updatedCards.add(0, card)
+        }
+        val newContainer = CardCatalogContainer(cards = updatedCards, liveOffers = current.liveOffers)
+        return saveCatalogToCache(newContainer)
+    }
+
+    @Synchronized
+    fun addOrUpdateCards(newCards: List<Card>): Boolean {
+        if (newCards.isEmpty()) return false
+        val current = getCatalog()
+        val cardMap = current.cards.associateBy { it.id }.toMutableMap()
+        for (card in newCards) {
+            cardMap[card.id] = card
+        }
+        val newContainer = CardCatalogContainer(cards = cardMap.values.toList(), liveOffers = current.liveOffers)
+        return saveCatalogToCache(newContainer)
+    }
+
+    @Synchronized
+    fun addOrUpdateOffers(newOffers: List<LiveOffer>): Boolean {
+        if (newOffers.isEmpty()) return false
+        val current = getCatalog()
+        val existingMap = current.liveOffers.associateBy { it.id }.toMutableMap()
+        for (offer in newOffers) {
+            existingMap[offer.id] = offer
+        }
+        val newContainer = CardCatalogContainer(cards = current.cards, liveOffers = existingMap.values.toList())
+        return saveCatalogToCache(newContainer)
+    }
+
     fun getAllCards(): List<Card> = getCatalog().cards
 
     fun getLiveOffers(): List<LiveOffer> = getCatalog().liveOffers
