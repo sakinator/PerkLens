@@ -57,13 +57,15 @@ fun DiscoverScreen(
 
     // Live Web & Network Hub Importer Dialog State
     var showImportDialog by remember { mutableStateOf(false) }
-    var importTab by remember { mutableStateOf(0) } // 0: Network Hub Search, 1: Bank URL
+    var importTab by remember { mutableStateOf(0) } // 0: Network Hub Search, 1: Bank URL, 2: Community & Devaluations
     var inputQuery by remember { mutableStateOf("") }
     var isImporting by remember { mutableStateOf(false) }
     var importStatusMessage by remember { mutableStateOf<String?>(null) }
     var importError by remember { mutableStateOf<String?>(null) }
     var discoveredCardPreview by remember { mutableStateOf<Card?>(null) }
     var alsoAddToVault by remember { mutableStateOf(true) }
+    var devaluationAlerts by remember { mutableStateOf<List<io.perklens.core.ai.DevaluationTimelineAlert>>(emptyList()) }
+    var isFetchingDevaluations by remember { mutableStateOf(false) }
 
     val filterOptions = listOf(
         "All" to "All ${allCards.size}+ Cards",
@@ -332,7 +334,7 @@ fun DiscoverScreen(
                         .fillMaxWidth()
                         .padding(vertical = 4.dp)
                 ) {
-                    // Two Tabs: 0 = Network Hub Search, 1 = Bank URL
+                    // Three Tabs: 0 = Network Hub Search, 1 = Bank URL, 2 = Community & Devaluations
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -352,11 +354,11 @@ fun DiscoverScreen(
                             color = if (importTab == 0) ElectricCyan.copy(alpha = 0.25f) else Color.Transparent
                         ) {
                             Text(
-                                text = "1. Network Hub (RuPay/Visa/MC)",
+                                text = "1. Networks",
                                 color = if (importTab == 0) ElectricCyan else TextTertiary,
                                 fontSize = 11.sp,
                                 fontWeight = if (importTab == 0) FontWeight.Bold else FontWeight.Normal,
-                                modifier = Modifier.padding(vertical = 8.dp),
+                                modifier = Modifier.padding(vertical = 7.dp),
                                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
                             )
                         }
@@ -372,11 +374,31 @@ fun DiscoverScreen(
                             color = if (importTab == 1) ElectricCyan.copy(alpha = 0.25f) else Color.Transparent
                         ) {
                             Text(
-                                text = "2. Bank Webpage URL",
+                                text = "2. Bank URL",
                                 color = if (importTab == 1) ElectricCyan else TextTertiary,
                                 fontSize = 11.sp,
                                 fontWeight = if (importTab == 1) FontWeight.Bold else FontWeight.Normal,
-                                modifier = Modifier.padding(vertical = 8.dp),
+                                modifier = Modifier.padding(vertical = 7.dp),
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
+                        }
+                        Surface(
+                            modifier = Modifier
+                                .weight(1.2f)
+                                .clickable {
+                                    importTab = 2
+                                    importError = null
+                                    discoveredCardPreview = null
+                                },
+                            shape = RoundedCornerShape(6.dp),
+                            color = if (importTab == 2) AmberGold.copy(alpha = 0.25f) else Color.Transparent
+                        ) {
+                            Text(
+                                text = "3. ⚡ Devaluations",
+                                color = if (importTab == 2) AmberGold else TextTertiary,
+                                fontSize = 11.sp,
+                                fontWeight = if (importTab == 2) FontWeight.Bold else FontWeight.Normal,
+                                modifier = Modifier.padding(vertical = 7.dp),
                                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
                             )
                         }
@@ -409,9 +431,9 @@ fun DiscoverScreen(
                                 unfocusedContainerColor = DarkSurfaceVariant
                             )
                         )
-                    } else {
+                    } else if (importTab == 1) {
                         Text(
-                            text = "Paste any official bank landing page URL (HDFC, SBI, BoB, ICICI, Axis, PNB, etc.). PerkLens fetches HTML directly and extracts card privileges.",
+                            text = "Paste any official bank or aggregator URL (HDFC, SBI, BoB, ICICI, CardGenie, PickMyCard, etc.). PerkLens fetches HTML directly and extracts card privileges.",
                             color = TextSecondary,
                             fontSize = 11.sp,
                             lineHeight = 15.sp
@@ -434,6 +456,125 @@ fun DiscoverScreen(
                                 unfocusedContainerColor = DarkSurfaceVariant
                             )
                         )
+                    } else {
+                        // Tab 2: 6 Specialized Community & Devaluation Sources
+                        Column(modifier = Modifier.fillMaxWidth()) {
+                            Text(
+                                text = "Trusted live sources for bank devaluations, lounge spend hikes & MITC rules:",
+                                color = TextSecondary,
+                                fontSize = 11.sp
+                            )
+                            Spacer(modifier = Modifier.height(6.dp))
+
+                            io.perklens.core.ai.LiveWebCardDiscoveryManager.TRUSTED_COMMUNITY_SOURCES.forEach { source ->
+                                Surface(
+                                    shape = RoundedCornerShape(8.dp),
+                                    color = DarkSurfaceVariant,
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, DarkBorder),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 2.dp)
+                                        .clickable {
+                                            inputQuery = source.url
+                                            importTab = 1
+                                        }
+                                ) {
+                                    Row(
+                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 5.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f)) {
+                                            Text(source.iconEmoji, fontSize = 13.sp)
+                                            Spacer(modifier = Modifier.width(6.dp))
+                                            Column {
+                                                Text(source.name, color = TextPrimary, fontWeight = FontWeight.SemiBold, fontSize = 11.sp)
+                                                Text(source.url.replace("https://", "").replace("www.", ""), color = TextTertiary, fontSize = 9.sp)
+                                            }
+                                        }
+                                        Text("Import URL ↗", color = ElectricCyan, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    }
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Button(
+                                onClick = {
+                                    isFetchingDevaluations = true
+                                    coroutineScope.launch {
+                                        try {
+                                            val res = liveWebDiscoveryManager?.fetchLatestDevaluationsAndTimeline(aiSettings)
+                                            if (res != null && res.isSuccess) {
+                                                devaluationAlerts = res.getOrDefault(emptyList())
+                                            }
+                                        } finally {
+                                            isFetchingDevaluations = false
+                                        }
+                                    }
+                                },
+                                enabled = !isFetchingDevaluations,
+                                colors = ButtonDefaults.buttonColors(containerColor = AmberGold),
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                if (isFetchingDevaluations) {
+                                    CircularProgressIndicator(color = DarkBackground, modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text("Scanning 6 Live Feeds...", color = DarkBackground, fontSize = 11.sp)
+                                } else {
+                                    Text("⚡ Scan 6 Feeds for Active Devaluations", color = DarkBackground, fontWeight = FontWeight.Bold, fontSize = 11.sp)
+                                }
+                            }
+
+                            if (devaluationAlerts.isNotEmpty()) {
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Text(
+                                    text = "🚨 ${devaluationAlerts.size} Active Devaluations & Rule Changes:",
+                                    color = AmberGold,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 11.sp
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Column(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                                ) {
+                                    devaluationAlerts.take(4).forEach { alert ->
+                                        Surface(
+                                            shape = RoundedCornerShape(6.dp),
+                                            color = DarkSurfaceVariant,
+                                            border = androidx.compose.foundation.BorderStroke(1.dp, CoralRed.copy(alpha = 0.35f)),
+                                            modifier = Modifier.fillMaxWidth()
+                                        ) {
+                                            Column(modifier = Modifier.padding(6.dp)) {
+                                                Row(
+                                                    modifier = Modifier.fillMaxWidth(),
+                                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                                    verticalAlignment = Alignment.CenterVertically
+                                                ) {
+                                                    Text(alert.cardName, color = TextPrimary, fontWeight = FontWeight.Bold, fontSize = 11.sp, modifier = Modifier.weight(1f))
+                                                    Surface(
+                                                        shape = RoundedCornerShape(3.dp),
+                                                        color = CoralRed.copy(alpha = 0.2f)
+                                                    ) {
+                                                        Text(alert.changeType, color = CoralRed, fontSize = 8.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp))
+                                                    }
+                                                }
+                                                Spacer(modifier = Modifier.height(2.dp))
+                                                Text(alert.impactSummary, color = TextSecondary, fontSize = 10.sp)
+                                                Spacer(modifier = Modifier.height(2.dp))
+                                                Row(
+                                                    modifier = Modifier.fillMaxWidth(),
+                                                    horizontalArrangement = Arrangement.SpaceBetween
+                                                ) {
+                                                    Text("Effective: ${alert.effectiveDate}", color = AmberGold, fontSize = 8.sp)
+                                                    Text("Via ${alert.sourceName}", color = ElectricCyan, fontSize = 8.sp)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     if (isImporting) {
@@ -527,7 +668,24 @@ fun DiscoverScreen(
                 }
             },
             confirmButton = {
-                if (discoveredCardPreview == null) {
+                if (importTab == 2) {
+                    Button(
+                        onClick = {
+                            if (devaluationAlerts.isNotEmpty()) {
+                                Toast.makeText(context, "Acknowledged ${devaluationAlerts.size} live devaluations", Toast.LENGTH_SHORT).show()
+                            }
+                            showImportDialog = false
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = AmberGold)
+                    ) {
+                        Text(
+                            text = if (devaluationAlerts.isNotEmpty()) "✓ Done Viewing (${devaluationAlerts.size})" else "Close",
+                            color = DarkBackground,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp
+                        )
+                    }
+                } else if (discoveredCardPreview == null) {
                     Button(
                         onClick = {
                             if (inputQuery.isBlank()) {

@@ -15,6 +15,7 @@ val ElectricCyan = Color(0xFF00E5FF)
 val AmberGold = Color(0xFFFFB300)
 val RadiantGold = Color(0xFFFFD54F)
 val OfferBadgeGold = Color(0xFFD6E324)
+val CoralRed = Color(0xFFFF5252)
 
 // 🖤 Deep Obsidian OLED Backgrounds & Surfaces
 val DarkBackground = Color(0xFF070A0F)
