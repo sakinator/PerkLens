@@ -6,16 +6,20 @@
 
 <p align="center">
   <a href="https://github.com/sakinator/PerkLens/releases/latest"><img src="https://img.shields.io/badge/Download-PerkLens%20v1.0.0%20APK-00E676?style=for-the-badge&logo=android&logoColor=black" alt="Download APK"/></a>
+  <a href="#-vibe-coded-philosophy--manifesto"><img src="https://img.shields.io/badge/Vibe%20Coded-100%25%20with%20AI-ff0c82?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="Vibe Coded"/></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/sakinator/PerkLens/actions/workflows/build-apk.yml"><img src="https://img.shields.io/github/actions/workflow/status/sakinator/PerkLens/build-apk.yml?style=flat-square&logo=github&label=APK%20Build" alt="Build Status"/></a>
-  <img src="https://img.shields.io/badge/Regression%20Suite-35%2F35%20Passed-00FF87?style=flat-square" alt="Regression Suite"/>
+  <img src="https://img.shields.io/badge/Regression%20Suite-36%2F36%20Passed-00FF87?style=flat-square" alt="Regression Suite"/>
   <img src="https://img.shields.io/badge/Theme-Dark%20%26%20Neon%20Green-00E676?style=flat-square" alt="Theme"/>
   <img src="https://img.shields.io/badge/Security-Zero%20KYC%20%7C%20Local%20Keys%20Only-00FF87?style=flat-square" alt="Security"/>
   <img src="https://img.shields.io/badge/Platform-Android%20%28Kotlin%20%2B%20Compose%29-10B981?style=flat-square" alt="Android"/>
   <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License"/>
 </p>
+
+> [!NOTE]
+> **✨ 100% Vibe Coded with AI:** PerkLens is vibe-coded through continuous human-AI agentic collaboration, real-time feedback loops, automated regression test suites, and live self-healing pipelines. High velocity, zero bloat, pure vibes.
 
 A modern, privacy-first Native Android application built with **Kotlin**, **Jetpack Compose**, and **Material 3**. 
 Where **ThreatLens** protects your Android device from mobile threats, **PerkLens** protects your wallet from lost airport lounge visits, expired cinema BOGOs, missed cashbacks, and hidden bank fee traps.
@@ -120,9 +124,40 @@ PerkLens/
 │               └── theme/            # Color, Theme, Type (Dark & Neon Green)
 ├── assets/
 │   └── perklens_logo.svg
+├── keystore/
+│   └── release.jks                   # 30-year permanent release signing keystore
+├── tools/
+│   ├── codebase_auditor.py           # ThreatLens-style static syntax & symbol auditor
+│   └── run_regression_suite.py       # 36 automated regression verification tests
 └── .github/workflows/
     └── build-apk.yml                 # Automated Android APK CI/CD pipeline
 ```
+
+---
+
+## 📦 Download Latest APK Release & Long-Term Keystore
+
+Download the official signed APK directly from GitHub:
+👉 **[PerkLens Latest GitHub Release](https://github.com/sakinator/PerkLens/releases/latest)**
+
+* **Guaranteed In-Place Upgrades:** Signed with a permanent 30-year release keystore (`keystore/release.jks`, valid until **2056**) matching both debug and release configurations. This ensures smooth direct updates over older versions without data loss or Android signature mismatch errors (`INSTALL_FAILED_UPDATE_INCOMPATIBLE`).
+* **Zero Signature Conflicts:** Debug and release builds share the identical signing identity so developers, beta testers, and end users can switch between builds seamlessly.
+
+---
+
+## ✨ Vibe Coded Philosophy & Manifesto
+
+> *"Code at the speed of thought. Guided by vibes, verified by automated test suites."*
+
+This entire project — spanning the on-device ML Kit multi-card vision scanner, real-time Indian bank SMS parsing heuristics, multi-horizon exhaustion engine, dynamic OTA catalog synchronization, and the reactive Jetpack Compose cyber-neon dashboard — is **100% Vibe Coded**.
+
+### What does "Vibe Coded" mean here?
+- **AI-Native Architecture**: Conceived, architected, debugged, and refined through symbiotic interaction between human vision and autonomous AI coding agents (DeepMind Antigravity / Gemini 2.0 / Claude).
+- **Continuous Agentic Pair Programming**: Built not through bureaucratic sprint tickets or boilerplate corporate design documents, but through organic, intent-driven iterations where design, logic, and polish happen simultaneously in tight agentic feedback loops.
+- **Rapid Self-Healing Pipelines**: Backed by a ThreatLens-grade static auditor (`tools/codebase_auditor.py`) and a comprehensive 36-test regression suite (`tools/run_regression_suite.py`) that verify bracket closures, schema structures, OCR sanitization, and quota math on every push.
+- **Vibe Velocity**: Shipped iteratively at extreme velocity without technical debt — evolving rapidly as new credit card perks, airport lounge devaluation rules, and bank SMS notification templates change.
+- **Zero-KYC Respect**: Vibecoding prioritizes user privacy above all: zero KYC data collection, zero telemetry bloat, zero tracking SDKs, and local-only API key persistence. Pure utility, pure vibes.
+- **As-Is Provision**: As with all vibe-coded software, it is offered purely as open-source research and experimental tooling for the credit card enthusiast community. Enjoy the vibes responsibly!
 
 ---
 

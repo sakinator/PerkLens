@@ -20,9 +20,19 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("${rootProject.projectDir}/keystore/release.jks")
+            storePassword = "perklens_keystore_secure"
+            keyAlias = "perklens"
+            keyPassword = "perklens_keystore_secure"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -30,6 +40,8 @@ android {
         }
         debug {
             isMinifyEnabled = false
+            // Use identical signing config so debug & release update over each other seamlessly with no signature conflict
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 

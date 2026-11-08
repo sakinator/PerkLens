@@ -33,6 +33,7 @@ apikey.properties
 *.key
 *.keystore
 *.jks
+!keystore/release.jks
 *.p12
 
 # Environment and sensitive keys

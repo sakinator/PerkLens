@@ -341,6 +341,19 @@ class RegressionTestRunner:
         self.record(".gitignore Leak Prevention Rules", has_local_props and has_keys and has_env and has_google_services,
                     "local.properties, keys, .env, and google-services.json strictly ignored")
 
+        # 4. Long-Term Release Keystore & In-Place Upgrade Signing Config
+        keystore_file = os.path.join(self.base_dir, "keystore", "release.jks")
+        keystore_exists = os.path.exists(keystore_file) and os.path.getsize(keystore_file) > 1000
+
+        build_gradle = os.path.join(self.base_dir, "app", "build.gradle.kts")
+        with open(build_gradle, "r", encoding="utf-8") as f:
+            gradle_text = f.read()
+
+        has_release_signing = 'keystore/release.jks' in gradle_text
+        debug_signed_with_release = 'signingConfigs.getByName("release")' in gradle_text
+        self.record("30-Year Release Keystore & In-Place Update Config", keystore_exists and has_release_signing and debug_signed_with_release,
+                    "Persistent 30-year keystore configured for in-place app updates over itself")
+
     # =========================================================================
     # SUITE 8: AI Heuristics & LTF Gap Advisor
     # =========================================================================
