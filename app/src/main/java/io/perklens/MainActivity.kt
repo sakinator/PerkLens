@@ -1,6 +1,7 @@
 package io.perklens
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import io.perklens.core.ai.AiSettingsRepository
+import io.perklens.core.diagnostics.AppDiagnosticsLogManager
 import io.perklens.core.parser.SmsSyncManager
 import io.perklens.core.sync.GmailSyncManager
 import io.perklens.data.repository.CardRepository
@@ -20,12 +22,14 @@ import io.perklens.ui.theme.PerkLensTheme
 import io.perklens.ui.theme.DarkBackground
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val syncManager = RemoteCatalogSyncManager(applicationContext)
+        val diagnosticsLogger = AppDiagnosticsLogManager(applicationContext)
+        val syncManager = RemoteCatalogSyncManager(applicationContext, diagnosticsLogger)
         val cardRepository = CardRepository(applicationContext, syncManager)
         val walletRepository = UserWalletRepository(applicationContext)
         val loungeRepository = LoungeRepository(applicationContext)
@@ -34,11 +38,19 @@ class MainActivity : ComponentActivity() {
         val smsSyncManager = SmsSyncManager(applicationContext, walletRepository, cardRepository)
         val gmailSyncManager = GmailSyncManager(applicationContext)
 
-        // Self-Sufficient Background Sync: Check for new offers & cards on launch without blocking UI
+        // As soon as the app launches look for all updates on cards new cards from all sources
+        // Once update is complete, show a toast notification "cards and offers database updated"
         lifecycleScope.launch(Dispatchers.IO) {
-            val updated = syncManager.syncLatestCatalog()
-            if (updated) {
-                cardRepository.reloadCatalog()
+            try {
+                val updated = syncManager.syncLatestCatalog()
+                if (updated) {
+                    cardRepository.reloadCatalog()
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(applicationContext, "cards and offers database updated", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                diagnosticsLogger.logError("APP_LAUNCH", "Error during startup catalog sync: ${e.message}", e)
             }
         }
 
@@ -56,7 +68,8 @@ class MainActivity : ComponentActivity() {
                         loungeRepo = loungeRepository,
                         categoryOffersRepo = categoryOffersRepository,
                         smsSyncManager = smsSyncManager,
-                        gmailSyncManager = gmailSyncManager
+                        gmailSyncManager = gmailSyncManager,
+                        diagnosticsLogger = diagnosticsLogger
                     )
                 }
             }

@@ -31,6 +31,8 @@ import androidx.core.content.ContextCompat
 import io.perklens.core.ai.AiProvider
 import io.perklens.core.ai.AiSettingsRepository
 import io.perklens.core.ai.CardAiVerdictEngine
+import io.perklens.core.diagnostics.AppDiagnosticsLogManager
+import io.perklens.core.diagnostics.DiagnosticLogEntry
 import io.perklens.core.parser.IntelligentOfferExhaustionEngine
 import io.perklens.core.parser.SmsSyncManager
 import io.perklens.core.sync.GmailSyncManager
@@ -50,6 +52,7 @@ fun SettingsScreen(
     walletRepo: UserWalletRepository? = null,
     smsSyncManager: SmsSyncManager? = null,
     gmailSyncManager: GmailSyncManager? = null,
+    diagnosticsLogger: AppDiagnosticsLogManager? = null,
     onBack: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -595,6 +598,174 @@ fun SettingsScreen(
                             Icon(Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(16.dp))
                             Spacer(modifier = Modifier.width(6.dp))
                             Text("Scan Recent Bank SMS Now", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // =================================================================
+            // 4. DIAGNOSTICS & ERROR LOG EXPORT (SECTION 4)
+            // =================================================================
+            val logs by (diagnosticsLogger?.logs?.collectAsState() ?: remember { mutableStateOf(emptyList()) })
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(DarkSurface)
+                    .border(1.dp, if (logs.isNotEmpty()) Color(0xFFEF5350).copy(alpha = 0.5f) else DarkBorderNeon, RoundedCornerShape(16.dp))
+                    .padding(16.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.BugReport,
+                            contentDescription = null,
+                            tint = if (logs.isNotEmpty()) Color(0xFFEF5350) else NeonGreen,
+                            modifier = Modifier.size(22.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "Diagnostics & Error Logs",
+                            color = TextPrimary,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(if (logs.isNotEmpty()) Color(0xFFEF5350).copy(alpha = 0.2f) else NeonGreen.copy(alpha = 0.15f))
+                            .border(0.5.dp, if (logs.isNotEmpty()) Color(0xFFEF5350) else NeonGreen, RoundedCornerShape(8.dp))
+                            .padding(horizontal = 7.dp, vertical = 3.dp)
+                    ) {
+                        Text(
+                            text = if (logs.isNotEmpty()) "${logs.size} Traces" else "0 Errors ✓",
+                            color = if (logs.isNotEmpty()) Color(0xFFFF8A80) else NeonGreenBright,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(6.dp))
+
+                Text(
+                    text = "Track failed catalog updates, network timeouts, or AI engine exceptions. Export full formatted incident reports so we can fix issues and build a better app.",
+                    color = TextSecondary,
+                    fontSize = 12.sp,
+                    lineHeight = 16.sp
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Error Entries Preview
+                if (logs.isEmpty()) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(NeonGreen.copy(alpha = 0.08f))
+                            .border(0.5.dp, NeonGreen.copy(alpha = 0.3f), RoundedCornerShape(8.dp))
+                            .padding(10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(Icons.Default.CheckCircle, contentDescription = null, tint = NeonGreen, modifier = Modifier.size(16.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "All systems operational. Zero failed updates recorded.",
+                            color = NeonGreenBright,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(DarkSurfaceVariant)
+                            .padding(10.dp)
+                    ) {
+                        Text(
+                            text = "Recent Incident Traces (Most Recent First):",
+                            color = TextSecondary,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+
+                        logs.take(3).forEach { entry ->
+                            Column(modifier = Modifier.padding(vertical = 4.dp)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Box(
+                                        modifier = Modifier
+                                            .clip(RoundedCornerShape(4.dp))
+                                            .background(if (entry.level == "ERROR") Color(0xFFEF5350) else Color(0xFFFFB300))
+                                            .padding(horizontal = 4.dp, vertical = 1.dp)
+                                    ) {
+                                        Text(text = entry.tag, color = Color.White, fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                                    }
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(text = entry.timestamp, color = TextTertiary, fontSize = 10.sp)
+                                }
+                                Text(
+                                    text = entry.message,
+                                    color = TextPrimary,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    maxLines = 2
+                                )
+                            }
+                            HorizontalDivider(color = DarkBorder, thickness = 0.5.dp, modifier = Modifier.padding(vertical = 2.dp))
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Action Buttons
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = {
+                            diagnosticsLogger?.exportAndShareReport(context, cardRepo.getAllCards().size)
+                        },
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = ElectricCyan,
+                            contentColor = DarkBackground
+                        ),
+                        shape = RoundedCornerShape(10.dp)
+                    ) {
+                        Icon(Icons.Default.Share, contentDescription = null, modifier = Modifier.size(16.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("Export Error Logs", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    }
+
+                    if (logs.isNotEmpty()) {
+                        OutlinedButton(
+                            onClick = {
+                                diagnosticsLogger?.clearLogs()
+                                Toast.makeText(context, "Error logs cleared", Toast.LENGTH_SHORT).show()
+                            },
+                            modifier = Modifier.width(110.dp),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFFEF5350)),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFEF5350).copy(alpha = 0.6f)),
+                            shape = RoundedCornerShape(10.dp)
+                        ) {
+                            Icon(Icons.Default.DeleteOutline, contentDescription = null, modifier = Modifier.size(14.dp))
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text("Clear", fontSize = 11.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }

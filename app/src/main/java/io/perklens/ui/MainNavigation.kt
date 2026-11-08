@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.perklens.core.ai.AiSettingsRepository
+import io.perklens.core.diagnostics.AppDiagnosticsLogManager
 import io.perklens.core.parser.SmsSyncManager
 import io.perklens.core.sync.GmailSyncManager
 import io.perklens.data.repository.CardRepository
@@ -43,7 +44,8 @@ fun MainScreen(
     loungeRepo: LoungeRepository,
     categoryOffersRepo: CategoryOffersRepository,
     smsSyncManager: SmsSyncManager? = null,
-    gmailSyncManager: GmailSyncManager? = null
+    gmailSyncManager: GmailSyncManager? = null,
+    diagnosticsLogger: AppDiagnosticsLogManager? = null
 ) {
     var selectedTab by remember { mutableStateOf<NavItem>(NavItem.Wallet) }
 
@@ -144,6 +146,7 @@ fun MainScreen(
                     walletRepo = walletRepo,
                     smsSyncManager = smsSyncManager,
                     gmailSyncManager = gmailSyncManager,
+                    diagnosticsLogger = diagnosticsLogger,
                     onBack = { selectedTab = NavItem.Wallet }
                 )
             }

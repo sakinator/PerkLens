@@ -1,4 +1,7 @@
 {
+  "version": "2.0.0",
+  "lastUpdated": "2026-11-08T16:20:00Z",
+  "totalLounges": 43,
   "lounges": [
     {
       "id": "del_t3_dom_encalm",
@@ -8,12 +11,30 @@
       "terminal": "Terminal 3",
       "type": "AIRPORT_DOMESTIC",
       "criteria": "SPEND_LINKED",
-      "spendRequirementNote": "HDFC & ICICI cards require ₹10k–₹50k spend in previous quarter. Scapia & Axis Atlas unconditional.",
-      "eligibleCardIds": ["scapia_federal", "axis_atlas", "tata_neu_infinity", "hdfc_millennia", "amex_platinum_travel"],
-      "eligibleNetworks": ["Visa", "Mastercard", "RuPay", "Amex"],
+      "spendRequirementNote": "HDFC & ICICI cards require ₹10k–₹50k spend in previous quarter. Scapia, BoB Eterna & Axis Atlas unconditional.",
+      "eligibleCardIds": [
+        "scapia_federal",
+        "axis_atlas",
+        "bob_eterna",
+        "tata_neu_infinity",
+        "hdfc_millennia",
+        "amex_platinum_travel"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay",
+        "Amex"
+      ],
       "timings": "24 Hours",
       "locationDetail": "Mezzanine Level, Near Food Court, Post-Security",
-      "amenities": ["Gourmet Buffet", "High Speed WiFi", "Live Cooking Station", "Flight Monitors", "Charging Docks"]
+      "amenities": [
+        "Gourmet Buffet",
+        "High Speed WiFi",
+        "Live Cooking Station",
+        "Flight Monitors",
+        "Charging Docks"
+      ]
     },
     {
       "id": "del_t3_intl_encalm",
@@ -23,12 +44,87 @@
       "terminal": "Terminal 3",
       "type": "AIRPORT_INTERNATIONAL",
       "criteria": "PRIORITY_PASS",
-      "spendRequirementNote": "Complimentary via Priority Pass / DreamFolks or premium tiers (Axis Atlas, Tata Neu Infinity).",
-      "eligibleCardIds": ["axis_atlas", "tata_neu_infinity", "amex_platinum_travel"],
-      "eligibleNetworks": ["Visa", "Mastercard", "Amex"],
+      "spendRequirementNote": "Complimentary via Priority Pass / DreamFolks or premium tiers (Axis Atlas, Tata Neu Infinity, BoB Varunah, Amex Plat Charge).",
+      "eligibleCardIds": [
+        "axis_atlas",
+        "tata_neu_infinity",
+        "bob_varunah",
+        "amex_platinum_travel",
+        "amex_platinum_charge"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "Amex"
+      ],
       "timings": "24 Hours",
       "locationDetail": "International Departures, Level 3, Near Gate 15",
-      "amenities": ["Luxury Buffet", "Bar & Cocktails", "Shower Rooms", "Nap Pods", "High Speed WiFi"]
+      "amenities": [
+        "Luxury Buffet",
+        "Bar & Cocktails",
+        "Shower Rooms",
+        "Nap Pods",
+        "High Speed WiFi"
+      ]
+    },
+    {
+      "id": "del_t1_dom_encalm",
+      "name": "Encalm Lounge (Domestic)",
+      "city": "Delhi NCR",
+      "airportOrStation": "Indira Gandhi International Airport (DEL)",
+      "terminal": "Terminal 1",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary on BoB Eterna, Axis Atlas, Scapia Federal & Tata Neu Infinity.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "axis_atlas",
+        "scapia_federal",
+        "tata_neu_infinity",
+        "au_zenith_plus"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Level 2, Post-Security, Domestic Departures",
+      "amenities": [
+        "Hot Buffet",
+        "WiFi",
+        "Bar Area",
+        "Workstations"
+      ]
+    },
+    {
+      "id": "del_t2_dom_encalm",
+      "name": "Encalm Lounge (Domestic)",
+      "city": "Delhi NCR",
+      "airportOrStation": "Indira Gandhi International Airport (DEL)",
+      "terminal": "Terminal 2",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "SPEND_LINKED",
+      "spendRequirementNote": "Bank spend criteria applies. Direct entry on BoB Eterna, Scapia & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "hdfc_regalia_gold"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "First Floor, Post-Security, Near Gate 21",
+      "amenities": [
+        "Buffet",
+        "WiFi",
+        "Beverages",
+        "Flight Displays"
+      ]
     },
     {
       "id": "bom_t2_dom_adani",
@@ -38,12 +134,28 @@
       "terminal": "Terminal 2",
       "type": "AIRPORT_DOMESTIC",
       "criteria": "SPEND_LINKED",
-      "spendRequirementNote": "ICICI cards need ₹10k spend in previous quarter. Axis Atlas, Scapia, and Tata Neu give direct entry.",
-      "eligibleCardIds": ["axis_atlas", "scapia_federal", "tata_neu_infinity", "hdfc_millennia", "hsbc_live_plus"],
-      "eligibleNetworks": ["Visa", "Mastercard", "RuPay"],
+      "spendRequirementNote": "ICICI cards need ₹10k spend in previous quarter. BoB Eterna, Axis Atlas, Scapia give direct entry.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "axis_atlas",
+        "scapia_federal",
+        "tata_neu_infinity",
+        "hdfc_millennia",
+        "hsbc_live_plus"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
       "timings": "24 Hours",
       "locationDetail": "Level 3, Domestic Departures, Opposite Gate 44",
-      "amenities": ["Hot Buffet", "Bar Counter", "Business Desks", "Flight Info Displays"]
+      "amenities": [
+        "Hot Buffet",
+        "Bar Counter",
+        "Business Desks",
+        "Flight Info Displays"
+      ]
     },
     {
       "id": "bom_t2_intl_adani",
@@ -53,117 +165,1099 @@
       "terminal": "Terminal 2",
       "type": "AIRPORT_INTERNATIONAL",
       "criteria": "PRIORITY_PASS",
-      "spendRequirementNote": "Available via Priority Pass / DreamFolks network on Axis Atlas & Amex Platinum Travel.",
-      "eligibleCardIds": ["axis_atlas", "amex_platinum_travel", "tata_neu_infinity"],
-      "eligibleNetworks": ["Visa", "Mastercard", "Amex"],
+      "spendRequirementNote": "Available via Priority Pass / DreamFolks network on Axis Atlas, BoB Varunah & Amex Platinum Travel.",
+      "eligibleCardIds": [
+        "axis_atlas",
+        "bob_varunah",
+        "amex_platinum_travel",
+        "tata_neu_infinity",
+        "idfc_first_wealth"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "Amex"
+      ],
       "timings": "24 Hours",
       "locationDetail": "Level 4, International Departures, Post-Security",
-      "amenities": ["À la Carte Dining", "Premium Bar", "Shower Suites", "Spa Services"]
+      "amenities": [
+        "Chef Buffet",
+        "Premium Liquor",
+        "Spa Showers",
+        "Relaxation Zones"
+      ]
     },
     {
-      "id": "blr_t2_080_dom",
-      "name": "080 Domestic Lounge",
-      "city": "Bengaluru",
-      "airportOrStation": "Kempegowda International Airport (BLR)",
-      "terminal": "Terminal 2 (Garden Terminal)",
+      "id": "bom_t1_dom_oasis",
+      "name": "Oasis Lounge (Domestic)",
+      "city": "Mumbai",
+      "airportOrStation": "Chhatrapati Shivaji Maharaj International Airport (BOM)",
+      "terminal": "Terminal 1",
       "type": "AIRPORT_DOMESTIC",
       "criteria": "UNCONDITIONAL",
-      "spendRequirementNote": "Scapia, Axis Atlas, and Tata Neu Infinity RuPay enter with instant ₹2 authorization swipe.",
-      "eligibleCardIds": ["scapia_federal", "axis_atlas", "tata_neu_infinity", "hdfc_millennia", "hsbc_live_plus"],
-      "eligibleNetworks": ["Visa", "Mastercard", "RuPay"],
+      "spendRequirementNote": "Complimentary swipe on BoB Eterna, Tata Neu Infinity, Scapia Federal & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "tata_neu_infinity",
+        "scapia_federal",
+        "axis_atlas",
+        "au_zenith_plus"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
       "timings": "24 Hours",
-      "locationDetail": "Terminal 2, Mezzanine Level, Near Gate 01",
-      "amenities": ["Botanical Ambience", "Artisanal Coffee", "Buffet", "Reading Pods", "Fast WiFi"]
+      "locationDetail": "Terminal 1B, Near Gate 2, Post-Security",
+      "amenities": [
+        "Warm Snacks",
+        "Coffee Bar",
+        "WiFi",
+        "Newspapers"
+      ]
     },
     {
-      "id": "blr_t1_080_dom",
-      "name": "080 Domestic Lounge (T1)",
+      "id": "blr_t1_dom_080",
+      "name": "080 Domestic Lounge",
       "city": "Bengaluru",
       "airportOrStation": "Kempegowda International Airport (BLR)",
       "terminal": "Terminal 1",
       "type": "AIRPORT_DOMESTIC",
-      "criteria": "SPEND_LINKED",
-      "spendRequirementNote": "HDFC Millennia requires ₹1L quarterly spend. Scapia requires ₹5k in previous billing cycle.",
-      "eligibleCardIds": ["scapia_federal", "axis_atlas", "tata_neu_infinity", "hdfc_millennia"],
-      "eligibleNetworks": ["Visa", "Mastercard", "RuPay"],
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "₹2 swipe for Scapia, BoB Eterna, Axis Atlas, and Tata Neu Infinity. HDFC/ICICI require spend qualification.",
+      "eligibleCardIds": [
+        "scapia_federal",
+        "bob_eterna",
+        "axis_atlas",
+        "tata_neu_infinity",
+        "hdfc_infinia",
+        "icici_emeralde_private"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
       "timings": "24 Hours",
-      "locationDetail": "Terminal 1, Level 2, Above Gate 10",
-      "amenities": ["South Indian Live Counters", "Buffet", "Power Stations", "Comfortable Loungers"]
+      "locationDetail": "Mezzanine Floor, Post-Security, Domestic Terminal",
+      "amenities": [
+        "Artisan Kitchen",
+        "Cocktail Bar",
+        "Quiet Zone",
+        "High Speed Internet",
+        "Shower Suites"
+      ]
     },
     {
-      "id": "hyd_encalm_dom",
+      "id": "blr_t2_dom_080",
+      "name": "080 Domestic Lounge (Terminal in a Garden)",
+      "city": "Bengaluru",
+      "airportOrStation": "Kempegowda International Airport (BLR)",
+      "terminal": "Terminal 2",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Direct ₹2 swipe on BoB Eterna, Scapia, Axis Atlas, Tata Neu Infinity. Spend threshold applies to standard cards.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity",
+        "hdfc_regalia_gold",
+        "idfc_first_wealth"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay",
+        "Amex"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Level 4, Terminal 2 Departures, Near Gate 12",
+      "amenities": [
+        "Forest View Terraces",
+        "Gourmet Dining",
+        "Barista Coffee",
+        "Private Suites"
+      ]
+    },
+    {
+      "id": "blr_t2_intl_080",
+      "name": "080 International Lounge",
+      "city": "Bengaluru",
+      "airportOrStation": "Kempegowda International Airport (BLR)",
+      "terminal": "Terminal 2",
+      "type": "AIRPORT_INTERNATIONAL",
+      "criteria": "PRIORITY_PASS",
+      "spendRequirementNote": "Complimentary via Priority Pass / DreamFolks network on BoB Varunah, Axis Atlas & Amex.",
+      "eligibleCardIds": [
+        "bob_varunah",
+        "axis_atlas",
+        "amex_platinum_travel",
+        "hdfc_infinia"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "Amex"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Level 3, International Departures, Post-Security",
+      "amenities": [
+        "Luxury Buffet",
+        "Premium Liquor",
+        "Shower Rooms",
+        "Nap Pods"
+      ]
+    },
+    {
+      "id": "hyd_dom_encalm",
       "name": "Encalm Lounge (Domestic)",
       "city": "Hyderabad",
       "airportOrStation": "Rajiv Gandhi International Airport (HYD)",
-      "terminal": "Main Terminal",
+      "terminal": "Domestic Departures",
       "type": "AIRPORT_DOMESTIC",
-      "criteria": "UNCONDITIONAL",
-      "spendRequirementNote": "Direct ₹2 swipe on eligible RuPay / Visa / Mastercard premium cards.",
-      "eligibleCardIds": ["scapia_federal", "tata_neu_infinity", "axis_atlas", "hsbc_live_plus"],
-      "eligibleNetworks": ["Visa", "Mastercard", "RuPay"],
+      "criteria": "SPEND_LINKED",
+      "spendRequirementNote": "Spend qualification required for ICICI & HDFC cards. Unconditional on BoB Eterna, Scapia & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity",
+        "hdfc_millennia"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
       "timings": "24 Hours",
-      "locationDetail": "Domestic Departures, Near Gate 21, Airside",
-      "amenities": ["Hyderabadi Biryani Buffet", "Coffee Bar", "WiFi", "Newspapers & Magazines"]
+      "locationDetail": "Near Gate 21, Post-Security, Domestic Terminal",
+      "amenities": [
+        "Hyderabadi Biryani Counter",
+        "Beverage Station",
+        "WiFi",
+        "Relaxation Loungers"
+      ]
     },
     {
-      "id": "maa_travel_club",
-      "name": "Travel Club Lounge (Domestic)",
+      "id": "hyd_intl_plaza",
+      "name": "Plaza Premium Lounge (International)",
+      "city": "Hyderabad",
+      "airportOrStation": "Rajiv Gandhi International Airport (HYD)",
+      "terminal": "International Departures",
+      "type": "AIRPORT_INTERNATIONAL",
+      "criteria": "PRIORITY_PASS",
+      "spendRequirementNote": "Priority Pass and DreamFolks eligible.",
+      "eligibleCardIds": [
+        "axis_atlas",
+        "bob_varunah",
+        "amex_platinum_travel"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "Amex"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Level E, International Departures, Near Gate 32",
+      "amenities": [
+        "Full Bar",
+        "Hot Buffet",
+        "Shower Facilities",
+        "WiFi"
+      ]
+    },
+    {
+      "id": "maa_t1_travel_club",
+      "name": "Travel Club Lounge (Domestic T1)",
       "city": "Chennai",
       "airportOrStation": "Chennai International Airport (MAA)",
       "terminal": "Terminal 1",
       "type": "AIRPORT_DOMESTIC",
       "criteria": "UNCONDITIONAL",
-      "spendRequirementNote": "Accepted on major bank RuPay and Visa cards without quarterly threshold.",
-      "eligibleCardIds": ["scapia_federal", "tata_neu_infinity", "axis_atlas", "hdfc_millennia"],
-      "eligibleNetworks": ["Visa", "Mastercard", "RuPay"],
-      "timings": "03:30 AM to 11:30 PM",
-      "locationDetail": "Security Hold Area, 3rd Floor, Near Gate 5",
-      "amenities": ["South Indian Filter Coffee", "Buffet", "WiFi", "Flight Info"]
+      "spendRequirementNote": "Direct ₹2 swipe on BoB Eterna, Scapia Federal & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity",
+        "au_zenith_plus"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "First Floor, Post-Security, Domestic Departures",
+      "amenities": [
+        "South Indian Tiffin",
+        "Buffet",
+        "WiFi",
+        "Workstations"
+      ]
     },
     {
-      "id": "gox_encalm_dom",
-      "name": "Encalm Lounge (Mopa Airport)",
+      "id": "maa_t4_intl_travel_club",
+      "name": "Travel Club Lounge (International T4)",
+      "city": "Chennai",
+      "airportOrStation": "Chennai International Airport (MAA)",
+      "terminal": "Terminal 4",
+      "type": "AIRPORT_INTERNATIONAL",
+      "criteria": "PRIORITY_PASS",
+      "spendRequirementNote": "Priority Pass & DreamFolks lounge card.",
+      "eligibleCardIds": [
+        "axis_atlas",
+        "bob_varunah",
+        "amex_platinum_travel"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "Amex"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Level 3, International Departures, Post-Security",
+      "amenities": [
+        "Buffet",
+        "Bar",
+        "Showers",
+        "Flight Displays"
+      ]
+    },
+    {
+      "id": "ccu_dom_travel_club",
+      "name": "Travel Club Lounge (Domestic)",
+      "city": "Kolkata",
+      "airportOrStation": "Netaji Subhash Chandra Bose International Airport (CCU)",
+      "terminal": "Domestic Departures",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "SPEND_LINKED",
+      "spendRequirementNote": "Eligible via BoB Eterna, Scapia, Tata Neu Infinity and Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "tata_neu_infinity",
+        "axis_atlas",
+        "hdfc_regalia_gold"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Mezzanine Floor, Post-Security, Near Gate 15",
+      "amenities": [
+        "Hot Dishes",
+        "Sweets & Desserts",
+        "WiFi",
+        "Flight Displays"
+      ]
+    },
+    {
+      "id": "ccu_intl_travel_club",
+      "name": "Travel Club Lounge (International)",
+      "city": "Kolkata",
+      "airportOrStation": "Netaji Subhash Chandra Bose International Airport (CCU)",
+      "terminal": "International Departures",
+      "type": "AIRPORT_INTERNATIONAL",
+      "criteria": "PRIORITY_PASS",
+      "spendRequirementNote": "Priority Pass and DreamFolks card required.",
+      "eligibleCardIds": [
+        "axis_atlas",
+        "bob_varunah",
+        "amex_platinum_travel"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "Amex"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Level 2, International Departures, Post-Security",
+      "amenities": [
+        "Hot Buffet",
+        "Bar Area",
+        "WiFi",
+        "Newspapers"
+      ]
+    },
+    {
+      "id": "amd_t1_the_lounge",
+      "name": "The Lounge (Domestic T1)",
+      "city": "Ahmedabad",
+      "airportOrStation": "Sardar Vallabhbhai Patel International Airport (AMD)",
+      "terminal": "Terminal 1",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary on BoB Eterna, Scapia Federal, Tata Neu Infinity & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "tata_neu_infinity",
+        "axis_atlas",
+        "au_zenith_plus"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Post-Security, Near Gate 3",
+      "amenities": [
+        "Gujarati Delicacies",
+        "Buffet",
+        "WiFi",
+        "Charging Points"
+      ]
+    },
+    {
+      "id": "amd_t2_the_lounge",
+      "name": "The Lounge (International T2)",
+      "city": "Ahmedabad",
+      "airportOrStation": "Sardar Vallabhbhai Patel International Airport (AMD)",
+      "terminal": "Terminal 2",
+      "type": "AIRPORT_INTERNATIONAL",
+      "criteria": "PRIORITY_PASS",
+      "spendRequirementNote": "Priority Pass and DreamFolks international access.",
+      "eligibleCardIds": [
+        "axis_atlas",
+        "bob_varunah",
+        "amex_platinum_travel"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "Amex"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Level 1, International Departures, Post-Security",
+      "amenities": [
+        "Hot Buffet",
+        "Beverages",
+        "WiFi",
+        "Flight Displays"
+      ]
+    },
+    {
+      "id": "pnq_dom_bird",
+      "name": "Bird Lounge (Domestic)",
+      "city": "Pune",
+      "airportOrStation": "Pune International Airport (PNQ)",
+      "terminal": "New Terminal",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Direct ₹2 swipe on BoB Eterna, Scapia & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "First Floor, Post-Security, Near Gate 5",
+      "amenities": [
+        "Buffet",
+        "Coffee Station",
+        "WiFi",
+        "Comfortable Seating"
+      ]
+    },
+    {
+      "id": "gox_mopa_encalm",
+      "name": "Encalm Lounge (Goa MOPA)",
       "city": "Goa",
       "airportOrStation": "Manohar International Airport (GOX)",
+      "terminal": "Domestic Departures",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary ₹2 swipe for Scapia Federal, BoB Eterna, Tata Neu Infinity & Axis Atlas.",
+      "eligibleCardIds": [
+        "scapia_federal",
+        "bob_eterna",
+        "tata_neu_infinity",
+        "axis_atlas",
+        "au_zenith_plus"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Mezzanine Level, Near Food Court, Post-Security",
+      "amenities": [
+        "Goan Delicacies",
+        "Bar Counter",
+        "Flight Displays",
+        "High Speed WiFi"
+      ]
+    },
+    {
+      "id": "goi_dabolim_good_times",
+      "name": "Good Times Bar & Lounge",
+      "city": "Goa",
+      "airportOrStation": "Dabolim International Airport (GOI)",
+      "terminal": "Domestic Departures",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "SPEND_LINKED",
+      "spendRequirementNote": "Card spend threshold required on select bank cards.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "hdfc_regalia_gold"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard"
+      ],
+      "timings": "05:00 - 23:00",
+      "locationDetail": "First Floor, Security Hold Area",
+      "amenities": [
+        "Snacks",
+        "Bar Services",
+        "WiFi",
+        "Flight Monitors"
+      ]
+    },
+    {
+      "id": "cok_dom_earth",
+      "name": "Earth Lounge (Domestic)",
+      "city": "Kochi",
+      "airportOrStation": "Cochin International Airport (COK)",
+      "terminal": "Terminal 1",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary on BoB Eterna, Scapia Federal & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "First Floor, Domestic Departures, Post-Security",
+      "amenities": [
+        "Kerala Meals & Snacks",
+        "Coffee",
+        "WiFi",
+        "Business Desks"
+      ]
+    },
+    {
+      "id": "cok_intl_earth",
+      "name": "Earth Lounge (International)",
+      "city": "Kochi",
+      "airportOrStation": "Cochin International Airport (COK)",
+      "terminal": "Terminal 3",
+      "type": "AIRPORT_INTERNATIONAL",
+      "criteria": "PRIORITY_PASS",
+      "spendRequirementNote": "Priority Pass and DreamFolks eligible.",
+      "eligibleCardIds": [
+        "axis_atlas",
+        "bob_varunah",
+        "amex_platinum_travel"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "Amex"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "International Departures, Post-Security",
+      "amenities": [
+        "Buffet",
+        "Bar Area",
+        "Shower Suites",
+        "WiFi"
+      ]
+    },
+    {
+      "id": "jai_dom_primus",
+      "name": "Primus Lounge (Domestic)",
+      "city": "Jaipur",
+      "airportOrStation": "Jaipur International Airport (JAI)",
+      "terminal": "Terminal 2",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Direct ₹2 swipe on BoB Eterna, Scapia, Tata Neu Infinity & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "tata_neu_infinity",
+        "axis_atlas",
+        "au_zenith_plus"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "First Floor, Post-Security, Near Gate 2",
+      "amenities": [
+        "Rajasthani Snacks",
+        "Buffet",
+        "WiFi",
+        "Charging Stations"
+      ]
+    },
+    {
+      "id": "lko_dom_the_lounge",
+      "name": "The Lounge (Domestic)",
+      "city": "Lucknow",
+      "airportOrStation": "Chaudhary Charan Singh International Airport (LKO)",
+      "terminal": "Terminal 3",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Direct ₹2 swipe on BoB Eterna, Scapia & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "First Floor, Domestic Departures",
+      "amenities": [
+        "Awadhi Cuisine",
+        "Beverages",
+        "WiFi",
+        "Flight Displays"
+      ]
+    },
+    {
+      "id": "ixc_dom_cram_bar",
+      "name": "Cram Bar & Lounge (Domestic)",
+      "city": "Chandigarh",
+      "airportOrStation": "Shaheed Bhagat Singh International Airport (IXC)",
+      "terminal": "Domestic Departures",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary swipe on BoB Eterna, Scapia, Axis Atlas & Tata Neu.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Level 1, Post-Security, Near Gate 4",
+      "amenities": [
+        "Buffet",
+        "Beverages",
+        "WiFi",
+        "Flight Info"
+      ]
+    },
+    {
+      "id": "atq_dom_costa",
+      "name": "Costa Coffee Executive Lounge",
+      "city": "Amritsar",
+      "airportOrStation": "Sri Guru Ram Dass Jee International Airport (ATQ)",
+      "terminal": "Domestic Departures",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "SPEND_LINKED",
+      "spendRequirementNote": "Card spend threshold required on select bank cards.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard"
+      ],
+      "timings": "06:00 - 22:00",
+      "locationDetail": "First Floor, Security Hold Area",
+      "amenities": [
+        "Warm Snacks",
+        "Coffee",
+        "WiFi",
+        "Newspapers"
+      ]
+    },
+    {
+      "id": "bbi_dom_mayfair",
+      "name": "Mayfair Lounge (Domestic)",
+      "city": "Bhubaneswar",
+      "airportOrStation": "Biju Patnaik International Airport (BBI)",
+      "terminal": "Terminal 1",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Direct ₹2 swipe on BoB Eterna, Scapia & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "First Floor, Post-Security, Near Gate 3",
+      "amenities": [
+        "Hot Buffet",
+        "WiFi",
+        "Beverages",
+        "Flight Monitors"
+      ]
+    },
+    {
+      "id": "gau_dom_the_lounge",
+      "name": "The Lounge (Domestic)",
+      "city": "Guwahati",
+      "airportOrStation": "Lokpriya Gopinath Bordoloi International Airport (GAU)",
+      "terminal": "Domestic Departures",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary on BoB Eterna, Scapia & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "First Floor, Security Hold Area",
+      "amenities": [
+        "Assam Tea & Snacks",
+        "Buffet",
+        "WiFi",
+        "Charging Points"
+      ]
+    },
+    {
+      "id": "idr_dom_primus",
+      "name": "Primus Lounge (Domestic)",
+      "city": "Indore",
+      "airportOrStation": "Devi Ahilya Bai Holkar Airport (IDR)",
+      "terminal": "Domestic Departures",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary on BoB Eterna, Scapia & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "First Floor, Security Hold Area",
+      "amenities": [
+        "Indori Poha & Snacks",
+        "Buffet",
+        "WiFi",
+        "Flight Displays"
+      ]
+    },
+    {
+      "id": "nag_dom_travel_club",
+      "name": "Travel Club Lounge (Domestic)",
+      "city": "Nagpur",
+      "airportOrStation": "Dr. Babasaheb Ambedkar International Airport (NAG)",
+      "terminal": "Domestic Departures",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary on BoB Eterna, Scapia & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Security Hold Area, Ground Floor",
+      "amenities": [
+        "Buffet",
+        "Tea & Coffee",
+        "WiFi",
+        "Flight Displays"
+      ]
+    },
+    {
+      "id": "cjb_dom_tfs",
+      "name": "TFS Lounge (Domestic)",
+      "city": "Coimbatore",
+      "airportOrStation": "Coimbatore International Airport (CJB)",
+      "terminal": "Domestic Departures",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary on BoB Eterna, Scapia & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "05:00 - 23:00",
+      "locationDetail": "First Floor, Post-Security",
+      "amenities": [
+        "South Indian Meals",
+        "WiFi",
+        "Beverages",
+        "Flight Monitors"
+      ]
+    },
+    {
+      "id": "trv_dom_executive",
+      "name": "Executive Lounge (Domestic)",
+      "city": "Thiruvananthapuram",
+      "airportOrStation": "Trivandrum International Airport (TRV)",
+      "terminal": "Terminal 1",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary swipe on BoB Eterna, Scapia & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Domestic Departures, Post-Security",
+      "amenities": [
+        "Buffet",
+        "Coffee",
+        "WiFi",
+        "Air Conditioning"
+      ]
+    },
+    {
+      "id": "vtz_dom_tfs",
+      "name": "TFS Lounge (Domestic)",
+      "city": "Visakhapatnam",
+      "airportOrStation": "Visakhapatnam International Airport (VTZ)",
+      "terminal": "Domestic Departures",
+      "type": "AIRPORT_DOMESTIC",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary on BoB Eterna, Scapia & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "axis_atlas",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "First Floor, Near Gate 2",
+      "amenities": [
+        "Buffet",
+        "WiFi",
+        "Beverages",
+        "Flight Displays"
+      ]
+    },
+    {
+      "id": "vns_dom_take_off",
+      "name": "Take Off Bar & Lounge (Domestic)",
+      "city": "Varanasi",
+      "airportOrStation": "Lal Bahadur Shastri International Airport (VNS)",
       "terminal": "Domestic Terminal",
       "type": "AIRPORT_DOMESTIC",
       "criteria": "UNCONDITIONAL",
-      "spendRequirementNote": "Direct entry for Scapia Federal, Tata Neu Infinity, and Axis Atlas.",
-      "eligibleCardIds": ["scapia_federal", "axis_atlas", "tata_neu_infinity"],
-      "eligibleNetworks": ["Visa", "Mastercard", "RuPay"],
-      "timings": "24 Hours",
-      "locationDetail": "Domestic Departures, 1st Floor, Near Gate 4",
-      "amenities": ["Coastal Cuisine", "Bar Counter", "Comfortable Seating", "High Speed WiFi"]
+      "spendRequirementNote": "Complimentary on BoB Eterna, Scapia, Tata Neu Infinity & Axis Atlas.",
+      "eligibleCardIds": [
+        "bob_eterna",
+        "scapia_federal",
+        "tata_neu_infinity",
+        "axis_atlas"
+      ],
+      "eligibleNetworks": [
+        "Visa",
+        "Mastercard",
+        "RuPay"
+      ],
+      "timings": "06:00 - 22:00",
+      "locationDetail": "First Floor, Security Hold Area",
+      "amenities": [
+        "Snacks Buffet",
+        "Beverages",
+        "WiFi",
+        "Flight Displays"
+      ]
     },
     {
-      "id": "rail_ndls_exec",
-      "name": "IRCTC Executive Railway Lounge",
+      "id": "rail_ndls_irctc",
+      "name": "IRCTC Executive Railway Lounge (Platform 16)",
       "city": "New Delhi",
       "airportOrStation": "New Delhi Railway Station (NDLS)",
       "terminal": "Platform 16 (Ajmeri Gate Side)",
       "type": "RAILWAY",
       "criteria": "UNCONDITIONAL",
-      "spendRequirementNote": "Complimentary 2 hours access on eligible cards (ICICI Coral/Rubyx, IDFC First).",
-      "eligibleCardIds": ["scapia_federal", "tata_neu_infinity"],
-      "eligibleNetworks": ["Visa", "Mastercard", "RuPay"],
+      "spendRequirementNote": "Free 2-hour stay with buffet on Ixigo AU, IRCTC BoB RuPay, IRCTC SBI Premier & select RuPay cards.",
+      "eligibleCardIds": [
+        "ixigo_au",
+        "bob_irctc",
+        "sbi_irctc_premier",
+        "tata_neu_infinity",
+        "au_zenith_plus"
+      ],
+      "eligibleNetworks": [
+        "RuPay",
+        "Visa",
+        "Mastercard"
+      ],
       "timings": "24 Hours",
-      "locationDetail": "Ground Floor, Ajmeri Gate Side, Near Escalator to Platform 16",
-      "amenities": ["Air-conditioned Lounge", "Buffet Meals", "Recliner Chairs", "Shower & Washroom", "Free WiFi"]
+      "locationDetail": "Platform 16, First Floor, Ajmeri Gate Entrance",
+      "amenities": [
+        "Recliner Chairs",
+        "Buffet Meals",
+        "High Speed WiFi",
+        "Bath & Wash",
+        "Shoe Shiner",
+        "Luggage Lockers"
+      ]
     },
     {
-      "id": "rail_varanasi_exec",
-      "name": "Varanasi Junction Executive Railway Lounge",
+      "id": "rail_ndls_plat1",
+      "name": "IRCTC Executive Railway Lounge (Platform 1)",
+      "city": "New Delhi",
+      "airportOrStation": "New Delhi Railway Station (NDLS)",
+      "terminal": "Platform 1 (Paharganj Side)",
+      "type": "RAILWAY",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Free access on Ixigo AU, IRCTC BoB RuPay & IRCTC SBI Premier.",
+      "eligibleCardIds": [
+        "ixigo_au",
+        "bob_irctc",
+        "sbi_irctc_premier",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "RuPay",
+        "Visa"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Platform 1, Near VIP Lounge, Paharganj Entrance",
+      "amenities": [
+        "Air-conditioned Lounge",
+        "Buffet",
+        "WiFi",
+        "Showers"
+      ]
+    },
+    {
+      "id": "rail_bsb_irctc",
+      "name": "IRCTC Executive Railway Lounge (Varanasi Cantt)",
       "city": "Varanasi",
-      "airportOrStation": "Varanasi Cantt Railway Station (BSB)",
+      "airportOrStation": "Varanasi Junction (BSB)",
       "terminal": "Platform 1",
       "type": "RAILWAY",
       "criteria": "UNCONDITIONAL",
-      "spendRequirementNote": "Free 2 hours stay including welcome drink and WiFi on eligible cards.",
-      "eligibleCardIds": ["tata_neu_infinity"],
-      "eligibleNetworks": ["RuPay", "Visa"],
+      "spendRequirementNote": "Complimentary swipe on Ixigo AU, IRCTC BoB RuPay, IRCTC SBI Premier & RuPay Select.",
+      "eligibleCardIds": [
+        "ixigo_au",
+        "bob_irctc",
+        "sbi_irctc_premier",
+        "tata_neu_infinity",
+        "bob_varunah"
+      ],
+      "eligibleNetworks": [
+        "RuPay",
+        "Visa"
+      ],
       "timings": "24 Hours",
-      "locationDetail": "Near Waiting Hall, Platform 1",
-      "amenities": ["AC Seating", "Tea/Coffee", "WiFi", "Charging Points"]
+      "locationDetail": "Platform 1, Near Main Concourse",
+      "amenities": [
+        "Luxury Recliners",
+        "Hot Meals",
+        "WiFi",
+        "Bath Facility"
+      ]
+    },
+    {
+      "id": "rail_sdah_irctc",
+      "name": "IRCTC Executive Railway Lounge (Sealdah)",
+      "city": "Kolkata",
+      "airportOrStation": "Sealdah Railway Station (SDAH)",
+      "terminal": "Main Concourse",
+      "type": "RAILWAY",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Free stay on Ixigo AU, IRCTC BoB RuPay & IRCTC SBI Premier.",
+      "eligibleCardIds": [
+        "ixigo_au",
+        "bob_irctc",
+        "sbi_irctc_premier",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "RuPay",
+        "Visa"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Near Platform 1, Main Concourse Hall",
+      "amenities": [
+        "Recliners",
+        "Snack Buffet",
+        "WiFi",
+        "Clean Restrooms"
+      ]
+    },
+    {
+      "id": "rail_agc_irctc",
+      "name": "IRCTC Executive Railway Lounge (Agra Cantt)",
+      "city": "Agra",
+      "airportOrStation": "Agra Cantt Railway Station (AGC)",
+      "terminal": "Platform 1",
+      "type": "RAILWAY",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary entry with Ixigo AU & IRCTC credit cards.",
+      "eligibleCardIds": [
+        "ixigo_au",
+        "bob_irctc",
+        "sbi_irctc_premier"
+      ],
+      "eligibleNetworks": [
+        "RuPay",
+        "Visa"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Platform 1, Near Enquiry Counter",
+      "amenities": [
+        "Air-conditioned Lounge",
+        "WiFi",
+        "Snacks Buffet",
+        "Lockers"
+      ]
+    },
+    {
+      "id": "rail_adi_irctc",
+      "name": "IRCTC Executive Railway Lounge (Ahmedabad)",
+      "city": "Ahmedabad",
+      "airportOrStation": "Ahmedabad Junction (ADI)",
+      "terminal": "Platform 1",
+      "type": "RAILWAY",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary on Ixigo AU, IRCTC BoB RuPay & IRCTC SBI Premier.",
+      "eligibleCardIds": [
+        "ixigo_au",
+        "bob_irctc",
+        "sbi_irctc_premier",
+        "tata_neu_infinity"
+      ],
+      "eligibleNetworks": [
+        "RuPay",
+        "Visa"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Platform 1, Kalupur Side Entrance",
+      "amenities": [
+        "Vegetarian Buffet",
+        "WiFi",
+        "Air Conditioning",
+        "Restrooms"
+      ]
+    },
+    {
+      "id": "rail_jp_irctc",
+      "name": "IRCTC Executive Railway Lounge (Jaipur)",
+      "city": "Jaipur",
+      "airportOrStation": "Jaipur Junction (JP)",
+      "terminal": "Platform 1",
+      "type": "RAILWAY",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary entry on Ixigo AU, IRCTC BoB RuPay & IRCTC SBI Premier.",
+      "eligibleCardIds": [
+        "ixigo_au",
+        "bob_irctc",
+        "sbi_irctc_premier"
+      ],
+      "eligibleNetworks": [
+        "RuPay",
+        "Visa"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Platform 1, Near Station Master Office",
+      "amenities": [
+        "Rajasthani Hospitality",
+        "WiFi",
+        "Buffet",
+        "Washrooms"
+      ]
+    },
+    {
+      "id": "rail_mdu_irctc",
+      "name": "IRCTC Executive Railway Lounge (Madurai)",
+      "city": "Madurai",
+      "airportOrStation": "Madurai Junction (MDU)",
+      "terminal": "Platform 1",
+      "type": "RAILWAY",
+      "criteria": "UNCONDITIONAL",
+      "spendRequirementNote": "Complimentary on Ixigo AU & IRCTC RuPay cards.",
+      "eligibleCardIds": [
+        "ixigo_au",
+        "bob_irctc",
+        "sbi_irctc_premier"
+      ],
+      "eligibleNetworks": [
+        "RuPay",
+        "Visa"
+      ],
+      "timings": "24 Hours",
+      "locationDetail": "Platform 1, Near Main Gate",
+      "amenities": [
+        "Air-conditioned Lounge",
+        "Hot Coffee",
+        "WiFi",
+        "Restrooms"
+      ]
     }
   ]
 }

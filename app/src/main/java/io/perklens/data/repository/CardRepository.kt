@@ -86,9 +86,18 @@ class CardRepository(
             "IDFC" -> getAllCards().filter { it.issuer.contains("IDFC", ignoreCase = true) }
             "IndusInd" -> getAllCards().filter { it.issuer.contains("IndusInd", ignoreCase = true) }
             "Kotak" -> getAllCards().filter { it.issuer.contains("Kotak", ignoreCase = true) }
+            "AU" -> getAllCards().filter { it.issuer.contains("AU Small", ignoreCase = true) || it.name.contains("AU ", ignoreCase = true) || it.name.contains("Ixigo", ignoreCase = true) }
+            "RBL" -> getAllCards().filter { it.issuer.contains("RBL", ignoreCase = true) || it.name.contains("RBL", ignoreCase = true) }
+            "Federal" -> getAllCards().filter { it.issuer.contains("Federal", ignoreCase = true) || it.name.contains("Scapia", ignoreCase = true) }
+            "YesBank" -> getAllCards().filter { it.issuer.contains("Yes Bank", ignoreCase = true) || it.name.contains("Kiwi", ignoreCase = true) }
+            "PNB" -> getAllCards().filter { it.issuer.contains("Punjab", ignoreCase = true) || it.issuer.contains("Canara", ignoreCase = true) || it.issuer.contains("Union", ignoreCase = true) || it.issuer.contains("Bank of India", ignoreCase = true) }
+            "StanC" -> getAllCards().filter { it.issuer.contains("Standard Chartered", ignoreCase = true) }
+            "HSBC" -> getAllCards().filter { it.issuer.contains("HSBC", ignoreCase = true) }
+            "Fintech" -> getAllCards().filter { listOf("OneCard", "Uni", "Jupiter", "Fi Money", "Niyo", "Slice").any { f -> it.issuer.contains(f, ignoreCase = true) || it.name.contains(f, ignoreCase = true) } }
             "Debit" -> getAllCards().filter { it.cardType.equals("DEBIT", ignoreCase = true) || it.name.contains("Debit", ignoreCase = true) }
             "Cashback" -> getAllCards().filter { it.rewardType.contains("Cashback", ignoreCase = true) }
             "Travel" -> getAllCards().filter { it.bestForCategory.contains("Travel", ignoreCase = true) || it.forexMarkupPercent <= 2.0 || it.loungeAccess.contains("lounge", ignoreCase = true) }
+            "Fuel" -> getAllCards().filter { it.bestForCategory.contains("Fuel", ignoreCase = true) || it.name.contains("BPCL", ignoreCase = true) || it.name.contains("HPCL", ignoreCase = true) || it.name.contains("IndianOil", ignoreCase = true) }
             "RuPay" -> getAllCards().filter { it.network.contains("RuPay", ignoreCase = true) }
             "LowFee" -> getAllCards().filter { it.annualFee in 1..1000 }
             else -> getAllCards()
