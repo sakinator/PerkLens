@@ -31,6 +31,7 @@ sealed class NavItem(val route: String, val title: String, val icon: ImageVector
     object Decide : NavItem("decide", "Best Swipe", Icons.Default.Savings)
     object Discover : NavItem("discover", "Discover", Icons.Default.Explore)
     object Advisor : NavItem("advisor", "AI Advisor", Icons.Default.AutoAwesome)
+    object Settings : NavItem("settings", "Settings & AI", Icons.Default.Settings)
 }
 
 @Composable
@@ -45,7 +46,6 @@ fun MainScreen(
     gmailSyncManager: GmailSyncManager? = null
 ) {
     var selectedTab by remember { mutableStateOf<NavItem>(NavItem.Wallet) }
-    var showSettingsScreen by remember { mutableStateOf(false) }
 
     val items = listOf(
         NavItem.Wallet,
@@ -53,101 +53,99 @@ fun MainScreen(
         NavItem.Lounges,
         NavItem.Decide,
         NavItem.Discover,
-        NavItem.Advisor
+        NavItem.Settings
     )
 
-    if (showSettingsScreen) {
-        SettingsScreen(
-            aiSettings = aiSettings,
-            syncManager = syncManager,
-            cardRepo = cardRepo,
-            walletRepo = walletRepo,
-            smsSyncManager = smsSyncManager,
-            gmailSyncManager = gmailSyncManager,
-            onBack = { showSettingsScreen = false }
-        )
-    } else {
-        Scaffold(
-            containerColor = DarkBackground,
-            bottomBar = {
-                NavigationBar(
-                    containerColor = DarkSurface,
-                    tonalElevation = 8.dp,
-                    modifier = Modifier.border(
-                        width = 1.dp,
-                        brush = Brush.verticalGradient(
-                            listOf(DarkBorderNeon, Color.Transparent)
-                        ),
-                        shape = androidx.compose.ui.graphics.RectangleShape
-                    )
-                ) {
-                    items.forEach { item ->
-                        val isSelected = selectedTab == item
-                        NavigationBarItem(
-                            selected = isSelected,
-                            onClick = { selectedTab = item },
-                            icon = {
-                                Icon(
-                                    imageVector = item.icon,
-                                    contentDescription = item.title
-                                )
-                            },
-                            label = {
-                                Text(
-                                    text = item.title,
-                                    fontSize = 10.sp,
-                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
-                                )
-                            },
-                            colors = NavigationBarItemDefaults.colors(
-                                selectedIconColor = EmeraldGreen,
-                                selectedTextColor = EmeraldGreen,
-                                unselectedIconColor = TextTertiary,
-                                unselectedTextColor = TextTertiary,
-                                indicatorColor = EmeraldGreen.copy(alpha = 0.15f)
+    Scaffold(
+        containerColor = DarkBackground,
+        bottomBar = {
+            NavigationBar(
+                containerColor = DarkSurface,
+                tonalElevation = 8.dp,
+                modifier = Modifier.border(
+                    width = 1.dp,
+                    brush = Brush.verticalGradient(
+                        listOf(DarkBorderNeon, Color.Transparent)
+                    ),
+                    shape = androidx.compose.ui.graphics.RectangleShape
+                )
+            ) {
+                items.forEach { item ->
+                    val isSelected = selectedTab == item
+                    NavigationBarItem(
+                        selected = isSelected,
+                        onClick = { selectedTab = item },
+                        icon = {
+                            Icon(
+                                imageVector = item.icon,
+                                contentDescription = item.title
                             )
+                        },
+                        label = {
+                            Text(
+                                text = item.title,
+                                fontSize = 10.sp,
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                            )
+                        },
+                        colors = NavigationBarItemDefaults.colors(
+                            selectedIconColor = EmeraldGreen,
+                            selectedTextColor = EmeraldGreen,
+                            unselectedIconColor = TextTertiary,
+                            unselectedTextColor = TextTertiary,
+                            indicatorColor = EmeraldGreen.copy(alpha = 0.15f)
                         )
-                    }
+                    )
                 }
             }
-        ) { innerPadding ->
-            Surface(
-                modifier = Modifier.padding(innerPadding),
-                color = DarkBackground
-            ) {
-                when (selectedTab) {
-                    is NavItem.Wallet -> WalletScreen(
-                        cardRepo = cardRepo,
-                        walletRepo = walletRepo,
-                        aiSettings = aiSettings,
-                        categoryOffersRepo = categoryOffersRepo
-                    )
-                    is NavItem.Offers -> CategoryOffersScreen(
-                        categoryOffersRepo = categoryOffersRepo,
-                        walletRepo = walletRepo,
-                        cardRepo = cardRepo
-                    )
-                    is NavItem.Lounges -> LoungeScreen(
-                        loungeRepo = loungeRepo,
-                        cardRepo = cardRepo,
-                        walletRepo = walletRepo
-                    )
-                    is NavItem.Decide -> DecisionScreen(
-                        cardRepo = cardRepo,
-                        walletRepo = walletRepo
-                    )
-                    is NavItem.Discover -> DiscoverScreen(
-                        cardRepo = cardRepo,
-                        walletRepo = walletRepo,
-                        aiSettings = aiSettings
-                    )
-                    is NavItem.Advisor -> AiAdvisorScreen(
-                        cardRepo = cardRepo,
-                        walletRepo = walletRepo,
-                        aiSettings = aiSettings,
-                        onNavigateToSettings = { showSettingsScreen = true }
-                    )
-                }
+        }
+    ) { innerPadding ->
+        Surface(
+            modifier = Modifier.padding(innerPadding),
+            color = DarkBackground
+        ) {
+            when (selectedTab) {
+                is NavItem.Wallet -> WalletScreen(
+                    cardRepo = cardRepo,
+                    walletRepo = walletRepo,
+                    aiSettings = aiSettings,
+                    categoryOffersRepo = categoryOffersRepo,
+                    onNavigateToSettings = { selectedTab = NavItem.Settings }
+                )
+                is NavItem.Offers -> CategoryOffersScreen(
+                    categoryOffersRepo = categoryOffersRepo,
+                    walletRepo = walletRepo,
+                    cardRepo = cardRepo
+                )
+                is NavItem.Lounges -> LoungeScreen(
+                    loungeRepo = loungeRepo,
+                    cardRepo = cardRepo,
+                    walletRepo = walletRepo
+                )
+                is NavItem.Decide -> DecisionScreen(
+                    cardRepo = cardRepo,
+                    walletRepo = walletRepo
+                )
+                is NavItem.Discover -> DiscoverScreen(
+                    cardRepo = cardRepo,
+                    walletRepo = walletRepo,
+                    aiSettings = aiSettings
+                )
+                is NavItem.Advisor -> AiAdvisorScreen(
+                    cardRepo = cardRepo,
+                    walletRepo = walletRepo,
+                    aiSettings = aiSettings,
+                    onNavigateToSettings = { selectedTab = NavItem.Settings }
+                )
+                is NavItem.Settings -> SettingsScreen(
+                    aiSettings = aiSettings,
+                    syncManager = syncManager,
+                    cardRepo = cardRepo,
+                    walletRepo = walletRepo,
+                    smsSyncManager = smsSyncManager,
+                    gmailSyncManager = gmailSyncManager,
+                    onBack = { selectedTab = NavItem.Wallet }
+                )
             }
         }
     }

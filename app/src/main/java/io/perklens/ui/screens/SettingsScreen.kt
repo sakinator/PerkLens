@@ -7,8 +7,10 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -28,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import io.perklens.core.ai.AiProvider
 import io.perklens.core.ai.AiSettingsRepository
+import io.perklens.core.ai.CardAiVerdictEngine
 import io.perklens.core.parser.IntelligentOfferExhaustionEngine
 import io.perklens.core.parser.SmsSyncManager
 import io.perklens.core.sync.GmailSyncManager
@@ -84,6 +87,9 @@ fun SettingsScreen(
     var isKeyVisible by remember { mutableStateOf(false) }
     var syncUrlText by remember { mutableStateOf(syncManager.getSyncUrl()) }
 
+    var isTestingAi by remember { mutableStateOf(false) }
+    var aiTestResult by remember { mutableStateOf<Pair<Boolean, String>?>(null) }
+
     // SMS Permission Launcher
     val smsPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
@@ -101,7 +107,12 @@ fun SettingsScreen(
         containerColor = DarkBackground,
         topBar = {
             TopAppBar(
-                title = { Text("Settings & Intelligent Sync", fontSize = 18.sp, fontWeight = FontWeight.Bold) },
+                title = {
+                    Column {
+                        Text("Settings & Multi-Engine AI", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = TextPrimary)
+                        Text("Configure AI providers, OTA sources & local vault", fontSize = 11.sp, color = TextSecondary)
+                    }
+                },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = TextPrimary)
@@ -122,7 +133,375 @@ fun SettingsScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
-            // 1. Automated Spends & Exhausted Offers Tracking (SMS & Gmail)
+            // =================================================================
+            // 1. MULTI-ENGINE AI INTEGRATION HUB (SECTION 1)
+            // =================================================================
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(DarkSurface)
+                    .border(1.5.dp, DarkBorderNeon, RoundedCornerShape(16.dp))
+                    .padding(16.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.AutoAwesome, contentDescription = null, tint = NeonGreen, modifier = Modifier.size(24.dp))
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Column {
+                            Text(
+                                text = "Multi-Engine AI Integration",
+                                color = TextPrimary,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = "Select active model for card advice & verdicts",
+                                color = TextSecondary,
+                                fontSize = 11.sp
+                            )
+                        }
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(NeonGreen.copy(alpha = 0.15f))
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                    ) {
+                        Text(
+                            text = "Zero-KYC 🔒",
+                            color = NeonGreenBright,
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                // Provider Selection Cards
+                AiProvider.values().forEach { provider ->
+                    val isSelected = currentProvider == provider
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp)
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(if (isSelected) DarkSurfaceVariant else Color.Transparent)
+                            .border(
+                                width = if (isSelected) 1.5.dp else 1.dp,
+                                color = if (isSelected) NeonGreen else DarkBorder,
+                                shape = RoundedCornerShape(10.dp)
+                            )
+                            .clickable {
+                                aiSettings.setProvider(provider)
+                                apiKeyText = aiSettings.getApiKey(provider)
+                                aiTestResult = null
+                            }
+                            .padding(horizontal = 10.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(
+                            selected = isSelected,
+                            onClick = {
+                                aiSettings.setProvider(provider)
+                                apiKeyText = aiSettings.getApiKey(provider)
+                                aiTestResult = null
+                            },
+                            colors = RadioButtonDefaults.colors(
+                                selectedColor = NeonGreen,
+                                unselectedColor = TextTertiary
+                            )
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = provider.displayName,
+                                color = TextPrimary,
+                                fontSize = 13.sp,
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.SemiBold
+                            )
+                            Text(
+                                text = provider.badge,
+                                color = if (isSelected) NeonGreenBright else TextTertiary,
+                                fontSize = 11.sp
+                            )
+                        }
+                    }
+                }
+
+                // API Key Input for Custom Key Providers
+                if (currentProvider in listOf(AiProvider.GEMINI_KEY, AiProvider.OPENAI, AiProvider.CLAUDE, AiProvider.GROQ)) {
+                    Spacer(modifier = Modifier.height(14.dp))
+                    val providerLabel = currentProvider.displayName.substringBefore('(').trim()
+                    Text(
+                        text = "Enter $providerLabel API Key:",
+                        color = TextPrimary,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    OutlinedTextField(
+                        value = apiKeyText,
+                        onValueChange = {
+                            apiKeyText = it
+                            aiSettings.setApiKey(currentProvider, it)
+                            aiTestResult = null
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        visualTransformation = if (isKeyVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                        trailingIcon = {
+                            IconButton(onClick = { isKeyVisible = !isKeyVisible }) {
+                                Icon(
+                                    imageVector = if (isKeyVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
+                                    contentDescription = null,
+                                    tint = TextSecondary
+                                )
+                            }
+                        },
+                        placeholder = { Text("Paste your API key here...", color = TextTertiary, fontSize = 12.sp) },
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedTextColor = TextPrimary,
+                            unfocusedTextColor = TextPrimary,
+                            focusedBorderColor = NeonGreen,
+                            unfocusedBorderColor = DarkBorder,
+                            focusedContainerColor = DarkSurfaceVariant,
+                            unfocusedContainerColor = DarkSurfaceVariant
+                        ),
+                        shape = RoundedCornerShape(10.dp),
+                        singleLine = true
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    // Test Connection Button
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                isTestingAi = true
+                                aiTestResult = CardAiVerdictEngine.testConnection(currentProvider, apiKeyText)
+                                isTestingAi = false
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = ElectricCyan,
+                            contentColor = DarkBackground
+                        ),
+                        shape = RoundedCornerShape(10.dp),
+                        enabled = !isTestingAi
+                    ) {
+                        if (isTestingAi) {
+                            CircularProgressIndicator(color = DarkBackground, modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("Testing Connection...", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        } else {
+                            Icon(Icons.Default.Speed, contentDescription = null, modifier = Modifier.size(16.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("Test AI Connection & Check Latency", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+
+                    // Test Result Display
+                    aiTestResult?.let { (success, msg) ->
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(if (success) NeonGreen.copy(alpha = 0.15f) else Color(0xFFEF5350).copy(alpha = 0.15f))
+                                .border(1.dp, if (success) NeonGreen else Color(0xFFEF5350), RoundedCornerShape(8.dp))
+                                .padding(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = if (success) Icons.Default.CheckCircle else Icons.Default.ErrorOutline,
+                                contentDescription = null,
+                                tint = if (success) NeonGreenBright else Color(0xFFEF5350),
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = msg,
+                                color = if (success) NeonGreenBright else Color(0xFFEF5350),
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Zero-KYC Key Security Reassurance
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(DarkBackground.copy(alpha = 0.6f))
+                        .padding(10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(Icons.Default.Lock, contentDescription = null, tint = EmeraldGreen, modifier = Modifier.size(16.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Keys are saved strictly on-device in Context.MODE_PRIVATE. Zero telemetry, zero external logging.",
+                        color = TextSecondary,
+                        fontSize = 11.sp
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                // Suggest LTF Only Switch
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(text = "Suggest Lifetime Free (LTF) Cards Only", color = TextPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                        Text(text = "Filter out cards with annual or joining fees from AI advice", color = TextSecondary, fontSize = 11.sp)
+                    }
+
+                    Switch(
+                        checked = suggestLtfOnly,
+                        onCheckedChange = { aiSettings.setSuggestLtfOnly(it) },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = DarkBackground,
+                            checkedTrackColor = NeonGreen,
+                            uncheckedTrackColor = DarkBorder
+                        )
+                    )
+                }
+            }
+
+            // =================================================================
+            // 2. DYNAMIC CATALOG REMOTE SYNC & RELIABLE UPDATE SOURCES (SECTION 2)
+            // =================================================================
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(DarkSurface)
+                    .border(1.dp, DarkBorder, RoundedCornerShape(16.dp))
+                    .padding(16.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(Icons.Default.CloudSync, contentDescription = null, tint = ElectricCyan, modifier = Modifier.size(22.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column {
+                        Text(
+                            text = "Dynamic Remote Catalog Sync",
+                            color = TextPrimary,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "${cardRepo.getAllCards().size} cards & privileges in local database",
+                            color = NeonGreenBright,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Text(
+                    text = "PerkLens automatically updates bank card perks, lounge access criteria, and devaluations live without requiring an APK update.",
+                    color = TextSecondary,
+                    fontSize = 12.sp,
+                    lineHeight = 16.sp
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Reliable Sources Notice
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(DarkBackground.copy(alpha = 0.6f))
+                        .padding(10.dp)
+                ) {
+                    Text(text = "📡 Reliable Catalog Sources:", color = TextPrimary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(text = "• Official Bank Tariff Sheets (BoB, HDFC, SBI, ICICI, Axis, Amex, IDFC)", color = TextSecondary, fontSize = 10.sp)
+                    Text(text = "• TechnoFino & CardExpert Community Verifications", color = TextSecondary, fontSize = 10.sp)
+                    Text(text = "• RBI Master Directions on Credit & Debit Card Issuance", color = TextSecondary, fontSize = 10.sp)
+                    Text(text = "• Instant Over-The-Air (OTA) GitHub Sync CDN", color = TextSecondary, fontSize = 10.sp)
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Text(text = "Catalog Sync Endpoint URL:", color = TextTertiary, fontSize = 11.sp)
+                Spacer(modifier = Modifier.height(4.dp))
+
+                OutlinedTextField(
+                    value = syncUrlText,
+                    onValueChange = {
+                        syncUrlText = it
+                        syncManager.setSyncUrl(it)
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = TextPrimary,
+                        unfocusedTextColor = TextPrimary,
+                        focusedBorderColor = ElectricCyan,
+                        unfocusedBorderColor = DarkBorder,
+                        focusedContainerColor = DarkSurfaceVariant,
+                        unfocusedContainerColor = DarkSurfaceVariant
+                    ),
+                    shape = RoundedCornerShape(10.dp),
+                    singleLine = true
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = "Last Synced: ${syncManager.getLastSyncTime()}", color = TextSecondary, fontSize = 11.sp)
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Button(
+                    onClick = {
+                        coroutineScope.launch {
+                            val success = syncManager.syncLatestCatalog(syncUrlText)
+                            if (success) {
+                                cardRepo.reloadCatalog()
+                                Toast.makeText(context, "Catalog updated! ${cardRepo.getAllCards().size} cards available.", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(context, "Sync failed. Checking offline backup.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = NeonGreen,
+                        contentColor = DarkBackground
+                    ),
+                    shape = RoundedCornerShape(10.dp),
+                    enabled = syncState !is SyncState.Syncing
+                ) {
+                    if (syncState is SyncState.Syncing) {
+                        CircularProgressIndicator(color = DarkBackground, modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Syncing Catalog...", fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    } else {
+                        Icon(Icons.Default.Sync, contentDescription = null, modifier = Modifier.size(16.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Sync Latest Cards & Offers Now", fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    }
+                }
+            }
+
+            // =================================================================
+            // 3. AUTOMATED SMS & STATEMENT MULTI-HORIZON TRACKING (SECTION 3)
+            // =================================================================
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -135,7 +514,7 @@ fun SettingsScreen(
                     Icon(Icons.Default.MarkEmailRead, contentDescription = null, tint = EmeraldGreen, modifier = Modifier.size(22.dp))
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Automated SMS & Gmail Sync",
+                        text = "Automated Spend & Quota Tracker",
                         color = TextPrimary,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold
@@ -145,35 +524,13 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.height(6.dp))
 
                 Text(
-                    text = "Intelligently parses bank transactions to track used monthly cinema tickets, quarterly airport lounges, and annual fee waiver milestones.",
+                    text = "Parses bank transaction notifications on-device to calculate consumed cinema tickets, cashback caps, and annual fee waivers.",
                     color = TextSecondary,
                     fontSize = 12.sp,
                     lineHeight = 16.sp
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
-
-                // Privacy Shield Box
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(EmeraldGreen.copy(alpha = 0.12f))
-                        .border(0.5.dp, EmeraldGreen.copy(alpha = 0.3f), RoundedCornerShape(8.dp))
-                        .padding(10.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(Icons.Default.Security, contentDescription = null, tint = EmeraldGreen, modifier = Modifier.size(16.dp))
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "🔒 100% On-Device Processing. No SMS or email text is ever uploaded or leaves your device.",
-                        color = EmeraldGreen,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(14.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
                 // SMS Sync Toggle
                 Row(
@@ -183,7 +540,7 @@ fun SettingsScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(text = "Auto-Analyze Bank SMS", color = TextPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
-                        Text(text = "Tracks BookMyShow BOGO, Swiggy caps & statement dates", color = TextSecondary, fontSize = 11.sp)
+                        Text(text = "Tracks BookMyShow BOGO, Swiggy caps & resets", color = TextSecondary, fontSize = 11.sp)
                     }
 
                     Switch(
@@ -205,370 +562,45 @@ fun SettingsScreen(
                         },
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = DarkBackground,
-                            checkedTrackColor = EmeraldGreen,
+                            checkedTrackColor = NeonGreen,
                             uncheckedTrackColor = DarkBorder
                         )
                     )
                 }
 
-                Spacer(modifier = Modifier.height(10.dp))
-
-                // Gmail Sync Toggle
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(text = "Optional Gmail E-Statement Sync", color = TextPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
-                        Text(text = "Reads e-statement totals and reward point summaries", color = TextSecondary, fontSize = 11.sp)
-                    }
-
-                    Switch(
-                        checked = isGmailSyncEnabled,
-                        onCheckedChange = { checked ->
-                            if (checked) {
-                                gmailSyncManager?.setConnected("user@gmail.com")
-                                Toast.makeText(context, "Gmail E-Statement Sync connected", Toast.LENGTH_SHORT).show()
-                            } else {
-                                gmailSyncManager?.setConnected(null)
-                            }
-                        },
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = DarkBackground,
-                            checkedTrackColor = EmeraldGreen,
-                            uncheckedTrackColor = DarkBorder
-                        )
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(14.dp))
-
-                Button(
-                    onClick = {
-                        coroutineScope.launch {
-                            isScanningSms = true
-                            val count = smsSyncManager?.scanInbox(30) ?: 0
-                            isScanningSms = false
-                            Toast.makeText(context, "Scanned & updated $count bank transactions!", Toast.LENGTH_SHORT).show()
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = DarkSurfaceVariant,
-                        contentColor = TextPrimary
-                    ),
-                    shape = RoundedCornerShape(10.dp)
-                ) {
-                    if (isScanningSms) {
-                        CircularProgressIndicator(color = EmeraldGreen, modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Analyzing Transactions...", fontSize = 12.sp)
-                    } else {
-                        Icon(Icons.Default.Sync, contentDescription = null, modifier = Modifier.size(16.dp))
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Scan Recent SMS & Update Quotas Now", fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                    }
-                }
-            }
-
-            // 2. Intelligent Exhaustion Dashboard (Month / Quarter / Year)
-            if (exhaustionStatuses.isNotEmpty()) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(DarkSurface)
-                        .border(1.dp, DarkBorder, RoundedCornerShape(16.dp))
-                        .padding(16.dp)
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "Exhaustive Offers Status",
-                            color = TextPrimary,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(6.dp))
-                                .background(ElectricCyan.copy(alpha = 0.15f))
-                                .padding(horizontal = 6.dp, vertical = 2.dp)
-                        ) {
-                            Text(text = "LIVE TRACKER", color = ElectricCyan, fontSize = 10.sp, fontWeight = FontWeight.Bold)
-                        }
-                    }
-
+                if (isSmsSyncEnabled) {
                     Spacer(modifier = Modifier.height(10.dp))
-
-                    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                        exhaustionStatuses.take(6).forEach { status ->
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(DarkSurfaceVariant)
-                                    .padding(12.dp)
-                            ) {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Column(modifier = Modifier.weight(1f)) {
-                                        Row(verticalAlignment = Alignment.CenterVertically) {
-                                            Text(
-                                                text = "[${status.window.label}] ",
-                                                color = AmberGold,
-                                                fontSize = 11.sp,
-                                                fontWeight = FontWeight.Bold
-                                            )
-                                            Text(
-                                                text = status.perkTitle,
-                                                color = TextPrimary,
-                                                fontSize = 13.sp,
-                                                fontWeight = FontWeight.Bold
-                                            )
-                                        }
-                                        Text(text = status.cardName, color = TextSecondary, fontSize = 11.sp)
-                                    }
-
-                                    Box(
-                                        modifier = Modifier
-                                            .clip(RoundedCornerShape(4.dp))
-                                            .background(if (status.isFullyExhausted) Color(0xFFEF5350).copy(alpha = 0.2f) else EmeraldGreen.copy(alpha = 0.2f))
-                                            .padding(horizontal = 6.dp, vertical = 2.dp)
-                                    ) {
-                                        Text(
-                                            text = if (status.isFullyExhausted) "EXHAUSTED 🔒" else "${status.remainingValue.toInt()} ${status.unit} LEFT",
-                                            color = if (status.isFullyExhausted) Color(0xFFEF5350) else EmeraldGreen,
-                                            fontSize = 10.sp,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                    }
-                                }
-
-                                Spacer(modifier = Modifier.height(6.dp))
-
-                                Text(text = "• ${status.sourceTrigger}", color = TextSecondary, fontSize = 11.sp)
-                                Text(text = "• ${status.resetDateNotice}", color = TextTertiary, fontSize = 10.sp)
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                isScanningSms = true
+                                val count = smsSyncManager?.readAndParseSms(limit = 100) ?: 0
+                                isScanningSms = false
+                                Toast.makeText(context, "Scanned $count recent transactions", Toast.LENGTH_SHORT).show()
                             }
-                        }
-                    }
-                }
-            }
-
-            // 3. Dynamic Catalog Sync Section
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(DarkSurface)
-                    .border(1.dp, DarkBorder, RoundedCornerShape(16.dp))
-                    .padding(16.dp)
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.CloudSync, contentDescription = null, tint = EmeraldGreen, modifier = Modifier.size(22.dp))
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "Dynamic Remote Sync",
-                        color = TextPrimary,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = "Allows PerkLens to fetch new bank offers, updated card details, new card art, and brand logos live without needing an app release or repository update.",
-                    color = TextSecondary,
-                    fontSize = 12.sp,
-                    lineHeight = 16.sp
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Text(text = "Catalog Sync Endpoint URL:", color = TextTertiary, fontSize = 11.sp)
-                Spacer(modifier = Modifier.height(4.dp))
-
-                OutlinedTextField(
-                    value = syncUrlText,
-                    onValueChange = {
-                        syncUrlText = it
-                        syncManager.setSyncUrl(it)
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedTextColor = TextPrimary,
-                        unfocusedTextColor = TextPrimary,
-                        focusedBorderColor = EmeraldGreen,
-                        unfocusedBorderColor = DarkBorder,
-                        focusedContainerColor = DarkSurfaceVariant,
-                        unfocusedContainerColor = DarkSurfaceVariant
-                    ),
-                    shape = RoundedCornerShape(10.dp),
-                    singleLine = true
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Text(text = "Last Synced: ${syncManager.getLastSyncTime()}", color = TextSecondary, fontSize = 12.sp)
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Button(
-                    onClick = {
-                        coroutineScope.launch {
-                            val success = syncManager.syncLatestCatalog(syncUrlText)
-                            if (success) {
-                                cardRepo.reloadCatalog()
-                                Toast.makeText(context, "Catalog updated successfully!", Toast.LENGTH_SHORT).show()
-                            } else {
-                                Toast.makeText(context, "Sync failed. Check URL or internet.", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = EmeraldGreen,
-                        contentColor = DarkBackground
-                    ),
-                    shape = RoundedCornerShape(10.dp),
-                    enabled = syncState !is SyncState.Syncing
-                ) {
-                    if (syncState is SyncState.Syncing) {
-                        CircularProgressIndicator(color = DarkBackground, modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Syncing Catalog...", fontSize = 13.sp, fontWeight = FontWeight.Bold)
-                    } else {
-                        Icon(Icons.Default.Sync, contentDescription = null, modifier = Modifier.size(16.dp))
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Sync Latest Cards & Offers Now", fontSize = 13.sp, fontWeight = FontWeight.Bold)
-                    }
-                }
-            }
-
-            // 4. Recommendation Preferences (Suggest LTF Only)
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(DarkSurface)
-                    .border(1.dp, DarkBorder, RoundedCornerShape(16.dp))
-                    .padding(16.dp)
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.Tune, contentDescription = null, tint = ElectricCyan, modifier = Modifier.size(20.dp))
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "Recommendation Preferences", color = TextPrimary, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                }
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(text = "Suggest Lifetime Free (LTF) Cards Only", color = TextPrimary, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
-                        Text(text = "Hides all cards with annual or joining fees from AI suggestions", color = TextSecondary, fontSize = 11.sp)
-                    }
-
-                    Switch(
-                        checked = suggestLtfOnly,
-                        onCheckedChange = { aiSettings.setSuggestLtfOnly(it) },
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = DarkBackground,
-                            checkedTrackColor = EmeraldGreen,
-                            uncheckedTrackColor = DarkBorder
-                        )
-                    )
-                }
-            }
-
-            // 5. AI Provider Integration (ThreatLens Style)
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(DarkSurface)
-                    .border(1.dp, DarkBorder, RoundedCornerShape(16.dp))
-                    .padding(16.dp)
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.AutoAwesome, contentDescription = null, tint = AmberGold, modifier = Modifier.size(20.dp))
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "AI Integration & Model", color = TextPrimary, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                }
-
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(text = "Select your preferred AI engine for card analysis and portfolio verdicts.", color = TextSecondary, fontSize = 12.sp)
-                Spacer(modifier = Modifier.height(12.dp))
-
-                AiProvider.values().forEach { provider ->
-                    val isSelected = currentProvider == provider
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(if (isSelected) DarkSurfaceVariant else Color.Transparent)
-                            .border(if (isSelected) 1.dp else 0.dp, EmeraldGreen, RoundedCornerShape(10.dp))
-                            .padding(horizontal = 8.dp, vertical = 6.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        RadioButton(
-                            selected = isSelected,
-                            onClick = { aiSettings.setProvider(provider) },
-                            colors = RadioButtonDefaults.colors(selectedColor = EmeraldGreen)
-                        )
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(text = provider.displayName, color = TextPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                            Text(text = provider.badge, color = if (provider == AiProvider.GEMINI_FREE) EmeraldGreen else ElectricCyan, fontSize = 11.sp)
-                        }
-                    }
-                }
-
-                if (currentProvider in listOf(AiProvider.GEMINI_KEY, AiProvider.OPENAI, AiProvider.CLAUDE, AiProvider.GROQ)) {
-                    Spacer(modifier = Modifier.height(14.dp))
-                    Text(text = "Enter ${currentProvider.displayName} API Key:", color = TextPrimary, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
-                    Spacer(modifier = Modifier.height(4.dp))
-                    OutlinedTextField(
-                        value = apiKeyText,
-                        onValueChange = {
-                            apiKeyText = it
-                            aiSettings.setApiKey(currentProvider, it)
                         },
                         modifier = Modifier.fillMaxWidth(),
-                        visualTransformation = if (isKeyVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                        trailingIcon = {
-                            IconButton(onClick = { isKeyVisible = !isKeyVisible }) {
-                                Icon(
-                                    imageVector = if (isKeyVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
-                                    contentDescription = null,
-                                    tint = TextSecondary
-                                )
-                            }
-                        },
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedTextColor = TextPrimary,
-                            unfocusedTextColor = TextPrimary,
-                            focusedBorderColor = EmeraldGreen,
-                            unfocusedBorderColor = DarkBorder,
-                            focusedContainerColor = DarkSurfaceVariant,
-                            unfocusedContainerColor = DarkSurfaceVariant
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = DarkSurfaceVariant,
+                            contentColor = NeonGreenBright
                         ),
                         shape = RoundedCornerShape(10.dp),
-                        singleLine = true
-                    )
+                        enabled = !isScanningSms
+                    ) {
+                        if (isScanningSms) {
+                            CircularProgressIndicator(color = NeonGreenBright, modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("Analyzing SMS Inbox...", fontSize = 12.sp)
+                        } else {
+                            Icon(Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(16.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("Scan Recent Bank SMS Now", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
                 }
             }
+
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }

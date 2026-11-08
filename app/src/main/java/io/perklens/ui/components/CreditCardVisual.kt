@@ -79,6 +79,7 @@ fun CreditCardVisual(
             SubcomposeAsyncImage(
                 model = ImageRequest.Builder(context)
                     .data(card.imageUrl)
+                    .setHeader("User-Agent", "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36")
                     .crossfade(true)
                     .build(),
                 contentDescription = card.name,
@@ -160,27 +161,48 @@ fun CreditCardVisual(
                     )
                 }
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(DarkBackground.copy(alpha = 0.6f))
-                        .border(0.5.dp, DarkBorderNeon, RoundedCornerShape(12.dp))
-                        .padding(horizontal = 7.dp, vertical = 3.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Star,
-                        contentDescription = "Rating",
-                        tint = OfferBadgeGold,
-                        modifier = Modifier.size(14.dp)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "${card.rating}",
-                        color = TextPrimary,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    // Card Type Pill (CREDIT / DEBIT)
+                    val isDebit = card.cardType.equals("DEBIT", ignoreCase = true)
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(if (isDebit) ElectricCyan.copy(alpha = 0.25f) else NeonGreen.copy(alpha = 0.2f))
+                            .border(0.5.dp, if (isDebit) ElectricCyan else NeonGreen, RoundedCornerShape(8.dp))
+                            .padding(horizontal = 6.dp, vertical = 3.dp)
+                    ) {
+                        Text(
+                            text = if (isDebit) "DEBIT" else "CREDIT",
+                            color = if (isDebit) ElectricCyan else NeonGreenBright,
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(6.dp))
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(DarkBackground.copy(alpha = 0.6f))
+                            .border(0.5.dp, DarkBorderNeon, RoundedCornerShape(12.dp))
+                            .padding(horizontal = 7.dp, vertical = 3.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = "Rating",
+                            tint = OfferBadgeGold,
+                            modifier = Modifier.size(14.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "${card.rating}",
+                            color = TextPrimary,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 }
             }
 
@@ -190,12 +212,13 @@ fun CreditCardVisual(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.Bottom
             ) {
-                Column {
+                Column(modifier = Modifier.weight(1f, fill = false)) {
                     Text(
                         text = card.name,
                         color = Color.White,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
+                        maxLines = 1,
                         style = androidx.compose.ui.text.TextStyle(
                             shadow = androidx.compose.ui.graphics.Shadow(
                                 color = Color.Black.copy(alpha = 0.8f),
@@ -212,22 +235,120 @@ fun CreditCardVisual(
                     )
                 }
 
-                // Network Logo
+                Spacer(modifier = Modifier.width(8.dp))
+
+                // Network Emblem
+                CardNetworkBadge(network = card.network)
+            }
+        }
+    }
+}
+
+@Composable
+fun CardNetworkBadge(network: String, modifier: Modifier = Modifier) {
+    val cleanNet = network.trim().uppercase()
+    when {
+        cleanNet.contains("RUPAY") -> {
+            Row(
+                modifier = modifier
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(DarkBackground.copy(alpha = 0.85f))
+                    .border(0.8.dp, DarkBorderNeon, RoundedCornerShape(6.dp))
+                    .padding(horizontal = 7.dp, vertical = 3.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "RuPay",
+                    color = Color.White,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Black
+                )
+                Spacer(modifier = Modifier.width(3.dp))
                 Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(6.dp))
-                        .background(DarkBackground.copy(alpha = 0.75f))
-                        .border(0.5.dp, DarkBorderNeon, RoundedCornerShape(6.dp))
-                        .padding(horizontal = 8.dp, vertical = 3.dp)
-                ) {
-                    Text(
-                        text = card.network.uppercase(),
-                        color = NeonGreenBright,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic
-                    )
-                }
+                        .size(6.dp)
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(Color(0xFFFF5F00))
+                )
+                Spacer(modifier = Modifier.width(2.dp))
+                Box(
+                    modifier = Modifier
+                        .size(6.dp)
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(Color(0xFF00A651))
+                )
+            }
+        }
+        cleanNet.contains("MASTER") -> {
+            Row(
+                modifier = modifier
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(DarkBackground.copy(alpha = 0.85f))
+                    .border(0.8.dp, DarkBorderNeon, RoundedCornerShape(6.dp))
+                    .padding(horizontal = 7.dp, vertical = 3.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(modifier = Modifier.size(11.dp).clip(CircleShape).background(Color(0xFFEB001B)))
+                Box(modifier = Modifier.offset(x = (-4).dp).size(11.dp).clip(CircleShape).background(Color(0xFFF79E1B).copy(alpha = 0.9f)))
+                Spacer(modifier = Modifier.width(2.dp))
+                Text(
+                    text = "mastercard",
+                    color = Color.White,
+                    fontSize = 9.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+        cleanNet.contains("AMEX") || cleanNet.contains("AMERICAN") -> {
+            Box(
+                modifier = modifier
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(Color(0xFF006FCF))
+                    .border(0.8.dp, Color.White.copy(alpha = 0.6f), RoundedCornerShape(6.dp))
+                    .padding(horizontal = 6.dp, vertical = 3.dp)
+            ) {
+                Text(
+                    text = "AMEX",
+                    color = Color.White,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Black,
+                    letterSpacing = 1.sp
+                )
+            }
+        }
+        cleanNet.contains("DINERS") -> {
+            Row(
+                modifier = modifier
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(Color(0xFF004A80))
+                    .border(0.8.dp, Color.White.copy(alpha = 0.5f), RoundedCornerShape(6.dp))
+                    .padding(horizontal = 6.dp, vertical = 3.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "DINERS CLUB",
+                    color = Color.White,
+                    fontSize = 9.sp,
+                    fontWeight = FontWeight.ExtraBold
+                )
+            }
+        }
+        else -> {
+            // Default to Visa
+            Box(
+                modifier = modifier
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(DarkBackground.copy(alpha = 0.85f))
+                    .border(0.8.dp, DarkBorderNeon, RoundedCornerShape(6.dp))
+                    .padding(horizontal = 8.dp, vertical = 3.dp)
+            ) {
+                Text(
+                    text = "VISA",
+                    color = Color.White,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Black,
+                    fontStyle = androidx.compose.ui.text.font.FontStyle.Italic
+                )
             }
         }
     }
@@ -247,17 +368,20 @@ private fun FallbackCardDesign(
                     colors = listOf(startColor, endColor)
                 )
             )
-            .padding(20.dp)
+            .padding(18.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            // Simulated chip & contactless in metallic gold & neon
+            // Middle section: EMV Gold Chip & Contactless Wave
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 28.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                // Photorealistic EMV Gold Chip
                 Box(
                     modifier = Modifier
                         .width(42.dp)
@@ -265,30 +389,68 @@ private fun FallbackCardDesign(
                         .clip(RoundedCornerShape(6.dp))
                         .background(
                             brush = Brush.linearGradient(
-                                listOf(Color(0xFFFFDF00), Color(0xFFB8860B))
+                                listOf(Color(0xFFFFE082), Color(0xFFFFB300), Color(0xFFB8860B))
                             )
                         )
                         .border(1.dp, Color(0xFF8B6508), RoundedCornerShape(6.dp))
-                )
+                        .padding(3.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .border(0.5.dp, Color(0xFF6D4C41).copy(alpha = 0.7f), RoundedCornerShape(3.dp))
+                    )
+                }
 
-                Spacer(modifier = Modifier.width(14.dp))
+                Spacer(modifier = Modifier.width(12.dp))
 
                 Text(
                     text = "))))",
                     color = NeonGreenBright.copy(alpha = 0.85f),
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 1.sp
                 )
             }
 
-            // Card Number
-            Text(
-                text = "••••  ••••  ••••  8824",
-                color = TextPrimary.copy(alpha = 0.85f),
-                fontSize = 16.sp,
-                fontFamily = FontFamily.Monospace,
-                letterSpacing = 2.sp
-            )
+            // Bottom section: Masked Number & Cardholder Info
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = "••••  ••••  ••••  8824",
+                    color = Color.White.copy(alpha = 0.9f),
+                    fontSize = 16.sp,
+                    fontFamily = FontFamily.Monospace,
+                    fontWeight = FontWeight.Medium,
+                    letterSpacing = 2.sp,
+                    style = androidx.compose.ui.text.TextStyle(
+                        shadow = androidx.compose.ui.graphics.Shadow(
+                            color = Color.Black.copy(alpha = 0.9f),
+                            blurRadius = 6f
+                        )
+                    )
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "PERKLENS VIP",
+                        color = Color.White.copy(alpha = 0.7f),
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 1.sp
+                    )
+                    Text(
+                        text = "VALID 12/30",
+                        color = Color.White.copy(alpha = 0.7f),
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 1.sp
+                    )
+                }
+            }
         }
     }
 }

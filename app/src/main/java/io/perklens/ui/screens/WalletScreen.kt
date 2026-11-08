@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Security
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -45,7 +46,8 @@ fun WalletScreen(
     cardRepo: CardRepository,
     walletRepo: UserWalletRepository,
     aiSettings: AiSettingsRepository,
-    categoryOffersRepo: CategoryOffersRepository? = null
+    categoryOffersRepo: CategoryOffersRepository? = null,
+    onNavigateToSettings: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val savedCardIds by walletRepo.savedCardIds.collectAsState()
@@ -121,6 +123,14 @@ fun WalletScreen(
                         )
                     }
 
+                    IconButton(onClick = onNavigateToSettings) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "AI & Catalog Settings",
+                            tint = NeonGreen
+                        )
+                    }
+
                     Box(
                         modifier = Modifier
                             .clip(CircleShape)
@@ -131,9 +141,57 @@ fun WalletScreen(
                             imageVector = Icons.Default.Security,
                             contentDescription = "Zero KYC Secure",
                             tint = EmeraldGreen,
-                            modifier = Modifier.size(20.dp)
+                            modifier = Modifier.size(18.dp)
                         )
                     }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Quick AI & Catalog Status Banner
+            val currentAiProvider by aiSettings.selectedProvider.collectAsState()
+            val aiName = remember(currentAiProvider) { currentAiProvider.displayName.substringBefore('(').trim() }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(DarkSurfaceVariant)
+                    .border(1.dp, DarkBorderNeon, RoundedCornerShape(12.dp))
+                    .clickable { onNavigateToSettings() }
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.AutoAwesome,
+                        contentDescription = null,
+                        tint = NeonGreen,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = "AI: $aiName",
+                        color = NeonGreenBright,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "${allCards.size} Cards Synced ✓",
+                        color = TextSecondary,
+                        fontSize = 11.sp
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Configure",
+                        tint = TextTertiary,
+                        modifier = Modifier.size(14.dp)
+                    )
                 }
             }
 

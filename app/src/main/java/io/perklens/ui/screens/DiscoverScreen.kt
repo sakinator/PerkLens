@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Explore
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -45,20 +46,42 @@ fun DiscoverScreen(
         allCards.filter { savedCardIds.contains(it.id) }
     }
 
+    var searchQuery by remember { mutableStateOf("") }
     var selectedFilter by remember { mutableStateOf("All") }
     var selectedCardForDetail by remember { mutableStateOf<Card?>(null) }
 
     val filterOptions = listOf(
-        "All" to "All Market Cards",
+        "All" to "All 44+ Cards",
+        "BoB" to "Bank of Baroda (Eterna)",
+        "HDFC" to "HDFC (Infinia)",
+        "SBI" to "SBI (Cashback)",
+        "ICICI" to "ICICI (Sapphiro)",
+        "Axis" to "Axis (Magnus)",
+        "IDFC" to "IDFC FIRST (Wealth)",
+        "Amex" to "American Express",
+        "IndusInd" to "IndusInd (Legend)",
+        "Kotak" to "Kotak Mahindra",
+        "Debit" to "Debit Cards",
         "LTF" to "Lifetime Free (LTF)",
+        "RuPay" to "RuPay UPI",
         "Cashback" to "Cashback Champions",
         "Travel" to "Travel & Forex",
-        "RuPay" to "RuPay UPI Cards",
-        "LowFee" to "Low Annual Fee (<₹1000)"
+        "LowFee" to "Low Fee (<₹1000)"
     )
 
-    val displayedCards = remember(selectedFilter, allCards) {
-        cardRepo.getCardsByFilter(selectedFilter)
+    val displayedCards = remember(selectedFilter, searchQuery, allCards) {
+        val filtered = cardRepo.getCardsByFilter(selectedFilter)
+        if (searchQuery.isBlank()) {
+            filtered
+        } else {
+            val q = searchQuery.trim().lowercase()
+            filtered.filter { card ->
+                card.name.lowercase().contains(q) ||
+                card.issuer.lowercase().contains(q) ||
+                card.bestForCategory.lowercase().contains(q) ||
+                card.network.lowercase().contains(q)
+            }
+        }
     }
 
     Column(
@@ -98,6 +121,27 @@ fun DiscoverScreen(
         }
 
         Spacer(modifier = Modifier.height(16.dp))
+
+        // Search bar
+        OutlinedTextField(
+            value = searchQuery,
+            onValueChange = { searchQuery = it },
+            placeholder = { Text("Search 44+ cards (e.g. BoB Eterna, Infinia, Swiggy, LTF)...", color = TextTertiary, fontSize = 13.sp) },
+            leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = ElectricCyan) },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            shape = RoundedCornerShape(12.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedTextColor = TextPrimary,
+                unfocusedTextColor = TextPrimary,
+                focusedBorderColor = ElectricCyan,
+                unfocusedBorderColor = DarkBorder,
+                focusedContainerColor = DarkSurfaceVariant,
+                unfocusedContainerColor = DarkSurfaceVariant
+            )
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
 
         // Filters Horizontal Scroll
         Row(

@@ -12,6 +12,7 @@ data class Card(
     @SerializedName("name") val name: String,
     @SerializedName("issuer") val issuer: String,
     @SerializedName("network") val network: String,
+    @SerializedName("cardType") val cardType: String = "CREDIT",
     @SerializedName("joiningFee") val joiningFee: Int,
     @SerializedName("annualFee") val annualFee: Int,
     @SerializedName("waiverSpendThreshold") val waiverSpendThreshold: Int,

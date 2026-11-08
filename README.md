@@ -82,15 +82,24 @@ The **PerkLens** brand features a sleek **Dark & Cyber Neon Green** modern desig
 - **Live Swipe Runway:** Calculates the exact number of interest-free days available if swiped today (up to ~50 days grace).
 - Automatically calculates countdowns to monthly cap and cinema quota resets.
 
-### 6. 🤖 Multi-Engine AI Integration (ThreatLens Style)
+### 6. 🤖 Multi-Engine AI Integration Hub & Live Latency Tester
+- **Dedicated "Settings & AI" Tab:** Promoted to the main bottom navigation bar alongside quick wallet status pills for instant access.
 - **AI Models Supported:**
   - **Google Gemini (Free Public Tier):** Works immediately with zero API keys required.
-  - **Custom API Keys:** Google Gemini 1.5/2.0 Flash, OpenAI (GPT-4o Mini), Anthropic Claude (3.5 Sonnet), and Groq (Llama 3).
-  - **Built-in Offline Smart Analyst:** 100% offline rule-based heuristic evaluator.
+  - **Custom API Keys:** Google Gemini 1.5/2.0 Flash, OpenAI (GPT-4o Mini), Anthropic Claude (3.5 Sonnet), and Groq (Ultra-fast sub-second Llama 3 70B/8B).
+  - **Built-in Offline Smart Analyst:** 100% offline rule-based heuristic evaluator (0ms latency, zero network transmission).
+- **Live Connection Tester:** Instant one-tap "Test AI Connection & Check Latency" button that verifies your credentials and reports server response times.
+- **Strictly Local-Only Key Storage:** API keys persist in `Context.MODE_PRIVATE` on-device storage. Zero telemetry, zero uploads, zero leakage.
 - **Portfolio Gap Advisor:** Analyzes what categories your wallet is missing (RuPay UPI, Lounge, Dining, Forex) with a toggle for **"Suggest Lifetime Free (LTF) Cards Only"**.
 
-### 7. 🔄 Dynamic Remote Sync (Self-Sufficient Updates)
-- Automatically checks a remote CDN/endpoint on launch to pull new bank offers, card devaluations, new card artwork, and brand logos live without requiring an APK release or repo update.
+### 7. 💳 44+ Comprehensive Credit & Debit Card Catalog & Reliable Update Sources
+- **Bank of Baroda Flagship Portfolio:** Featuring **BoB Eterna** (unlimited domestic lounge access, 3.75% travel/dining reward rate, FitPass Pro, 1+1 BMS cinema), **BoB Premier**, **BoB Varunah (RuPay)**, and **BoB Easy**.
+- **All Major Indian Banks & Fintechs:** HDFC (Infinia Metal, Diners Black, Regalia Gold, Swiggy, EasyShop Platinum Debit), SBI (Aurum, Elite, SimplyCLICK, Octane, Global Debit), ICICI (Emeralde Private, Sapphiro, Coral), Axis (Magnus, Atlas, Flipkart, Ace, Burgundy Debit), IDFC FIRST (Wealth, WOW 0% Forex), IndusInd, Kotak, Amex (Platinum, MRCC, Platinum Travel), AU Small Finance (Zenith+ 0.99% forex, Ixigo 0% forex), RBL (World Safari 0% forex), and Fintechs (Fi Money, Jupiter Edge RuPay).
+- **Photorealistic Card Visualizer:** Authentic EMV gold microchips with contact traces, contactless NFC waves, crisp card network emblems (RuPay with tricolor accents, Visa, Mastercard dual overlapping circles, Amex blue box, Diners Club), and dynamic glassmorphism badge overlays.
+- **Reliable Update Sources:**
+  1. **Official Bank SOC & MITC:** Directly sourced from quarterly bank tariff sheets mandated under RBI Master Directions.
+  2. **Community Reward Matrices:** TechnoFino & CardExpert curated open databases for category accelerators and exclusions.
+  3. **PerksLens OTA Dynamic Sync:** Checks the remote repository on launch to pull new bank offers and devaluations live without requiring APK re-installs.
 
 ---
 

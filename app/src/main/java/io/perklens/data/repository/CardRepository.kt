@@ -77,8 +77,18 @@ class CardRepository(
     fun getCardsByFilter(filter: String): List<Card> {
         return when (filter) {
             "LTF" -> getAllCards().filter { it.isLifetimeFree }
+            "BoB" -> getAllCards().filter { it.issuer.contains("Baroda", ignoreCase = true) || it.name.contains("Baroda", ignoreCase = true) }
+            "HDFC" -> getAllCards().filter { it.issuer.contains("HDFC", ignoreCase = true) }
+            "SBI" -> getAllCards().filter { it.issuer.contains("SBI", ignoreCase = true) || it.issuer.contains("State Bank", ignoreCase = true) }
+            "ICICI" -> getAllCards().filter { it.issuer.contains("ICICI", ignoreCase = true) }
+            "Axis" -> getAllCards().filter { it.issuer.contains("Axis", ignoreCase = true) }
+            "Amex" -> getAllCards().filter { it.issuer.contains("American Express", ignoreCase = true) || it.network.contains("Amex", ignoreCase = true) }
+            "IDFC" -> getAllCards().filter { it.issuer.contains("IDFC", ignoreCase = true) }
+            "IndusInd" -> getAllCards().filter { it.issuer.contains("IndusInd", ignoreCase = true) }
+            "Kotak" -> getAllCards().filter { it.issuer.contains("Kotak", ignoreCase = true) }
+            "Debit" -> getAllCards().filter { it.cardType.equals("DEBIT", ignoreCase = true) || it.name.contains("Debit", ignoreCase = true) }
             "Cashback" -> getAllCards().filter { it.rewardType.contains("Cashback", ignoreCase = true) }
-            "Travel" -> getAllCards().filter { it.bestForCategory.contains("Travel", ignoreCase = true) || it.forexMarkupPercent <= 2.0 }
+            "Travel" -> getAllCards().filter { it.bestForCategory.contains("Travel", ignoreCase = true) || it.forexMarkupPercent <= 2.0 || it.loungeAccess.contains("lounge", ignoreCase = true) }
             "RuPay" -> getAllCards().filter { it.network.contains("RuPay", ignoreCase = true) }
             "LowFee" -> getAllCards().filter { it.annualFee in 1..1000 }
             else -> getAllCards()
