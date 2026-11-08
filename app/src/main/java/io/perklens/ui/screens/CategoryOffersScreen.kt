@@ -128,9 +128,9 @@ fun CategoryOffersScreen(
                         containerColor = DarkSurfaceVariant,
                         labelColor = TextSecondary
                     ),
-                    border = FilterChipDefaults.filterChipBorder(
-                        borderColor = if (isSelected) AmberGold else DarkBorder,
-                        selectedBorderColor = AmberGold
+                    border = androidx.compose.foundation.BorderStroke(
+                        1.dp,
+                        if (isSelected) AmberGold else DarkBorder
                     )
                 )
             }

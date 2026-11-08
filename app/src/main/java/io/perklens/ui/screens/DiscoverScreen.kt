@@ -118,9 +118,9 @@ fun DiscoverScreen(
                         containerColor = DarkSurfaceVariant,
                         labelColor = TextSecondary
                     ),
-                    border = FilterChipDefaults.filterChipBorder(
-                        borderColor = if (isSelected) ElectricCyan else DarkBorder,
-                        selectedBorderColor = ElectricCyan
+                    border = androidx.compose.foundation.BorderStroke(
+                        1.dp,
+                        if (isSelected) ElectricCyan else DarkBorder
                     )
                 )
             }

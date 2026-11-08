@@ -340,3 +340,99 @@ fun WalletScreen(
         }
     }
 }
+
+@Composable
+private fun CardItemWithPerks(
+    card: Card,
+    graceDays: Int,
+    billingDay: Int,
+    moviesUsed: Int,
+    onClick: () -> Unit,
+    onRemove: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(18.dp))
+            .background(DarkSurface)
+            .border(1.dp, DarkBorderNeon, RoundedCornerShape(18.dp))
+            .clickable { onClick() }
+            .padding(12.dp)
+    ) {
+        // Visual Card Canvas
+        CreditCardVisual(card = card)
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        // Perks & Runway Metrics Row
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Interest-Free Runway Pill
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(NeonGreen.copy(alpha = 0.15f))
+                        .border(0.5.dp, NeonGreen.copy(alpha = 0.4f), RoundedCornerShape(6.dp))
+                        .padding(horizontal = 8.dp, vertical = 3.dp)
+                ) {
+                    Text(
+                        text = "⚡ $graceDays Days Runway",
+                        color = NeonGreenBright,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+                // Billing Day Pill
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(DarkSurfaceVariant)
+                        .padding(horizontal = 8.dp, vertical = 3.dp)
+                ) {
+                    Text(
+                        text = "📅 Bill Day $billingDay",
+                        color = TextSecondary,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+
+                // Cinema Quota Pill
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(OfferBadgeGold.copy(alpha = 0.15f))
+                        .padding(horizontal = 8.dp, vertical = 3.dp)
+                ) {
+                    Text(
+                        text = "🎬 $moviesUsed/2 BOGO",
+                        color = OfferBadgeGold,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+            }
+
+            // Remove Button
+            IconButton(
+                onClick = onRemove,
+                modifier = Modifier.size(28.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "Remove Card",
+                    tint = TextTertiary,
+                    modifier = Modifier.size(16.dp)
+                )
+            }
+        }
+    }
+}

@@ -148,7 +148,7 @@ fun LoungeScreen(
                     containerColor = DarkSurfaceVariant,
                     labelColor = TextSecondary
                 ),
-                border = FilterChipDefaults.filterChipBorder(borderColor = if (selectedType == null) ElectricCyan else DarkBorder, selectedBorderColor = ElectricCyan)
+                border = androidx.compose.foundation.BorderStroke(1.dp, if (selectedType == null) ElectricCyan else DarkBorder)
             )
 
             FilterChip(
@@ -161,7 +161,7 @@ fun LoungeScreen(
                     containerColor = DarkSurfaceVariant,
                     labelColor = TextSecondary
                 ),
-                border = FilterChipDefaults.filterChipBorder(borderColor = if (selectedType == LoungeType.AIRPORT_DOMESTIC) ElectricCyan else DarkBorder, selectedBorderColor = ElectricCyan)
+                border = androidx.compose.foundation.BorderStroke(1.dp, if (selectedType == LoungeType.AIRPORT_DOMESTIC) ElectricCyan else DarkBorder)
             )
 
             FilterChip(
@@ -174,7 +174,7 @@ fun LoungeScreen(
                     containerColor = DarkSurfaceVariant,
                     labelColor = TextSecondary
                 ),
-                border = FilterChipDefaults.filterChipBorder(borderColor = if (selectedType == LoungeType.AIRPORT_INTERNATIONAL) ElectricCyan else DarkBorder, selectedBorderColor = ElectricCyan)
+                border = androidx.compose.foundation.BorderStroke(1.dp, if (selectedType == LoungeType.AIRPORT_INTERNATIONAL) ElectricCyan else DarkBorder)
             )
 
             FilterChip(
@@ -187,7 +187,7 @@ fun LoungeScreen(
                     containerColor = DarkSurfaceVariant,
                     labelColor = TextSecondary
                 ),
-                border = FilterChipDefaults.filterChipBorder(borderColor = if (selectedType == LoungeType.RAILWAY) AmberGold else DarkBorder, selectedBorderColor = AmberGold)
+                border = androidx.compose.foundation.BorderStroke(1.dp, if (selectedType == LoungeType.RAILWAY) AmberGold else DarkBorder)
             )
         }
 

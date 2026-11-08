@@ -77,7 +77,8 @@ fun MainScreen(
                         width = 1.dp,
                         brush = Brush.verticalGradient(
                             listOf(DarkBorderNeon, Color.Transparent)
-                        )
+                        ),
+                        shape = androidx.compose.ui.graphics.RectangleShape
                     )
                 ) {
                     items.forEach { item ->

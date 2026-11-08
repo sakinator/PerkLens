@@ -196,9 +196,11 @@ fun CreditCardVisual(
                         color = Color.White,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
-                        shadow = androidx.compose.ui.graphics.Shadow(
-                            color = Color.Black.copy(alpha = 0.8f),
-                            blurRadius = 8f
+                        style = androidx.compose.ui.text.TextStyle(
+                            shadow = androidx.compose.ui.graphics.Shadow(
+                                color = Color.Black.copy(alpha = 0.8f),
+                                blurRadius = 8f
+                            )
                         )
                     )
                     Spacer(modifier = Modifier.height(3.dp))
