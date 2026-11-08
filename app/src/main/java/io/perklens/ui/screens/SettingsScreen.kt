@@ -574,7 +574,7 @@ fun SettingsScreen(
                         onClick = {
                             coroutineScope.launch {
                                 isScanningSms = true
-                                val count = smsSyncManager?.readAndParseSms(limit = 100) ?: 0
+                                val count = smsSyncManager?.scanInbox(daysBack = 30) ?: 0
                                 isScanningSms = false
                                 Toast.makeText(context, "Scanned $count recent transactions", Toast.LENGTH_SHORT).show()
                             }
