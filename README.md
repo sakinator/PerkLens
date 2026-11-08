@@ -172,7 +172,7 @@ This entire project — spanning the on-device ML Kit multi-card vision scanner,
 ```bash
 git clone https://github.com/sakinator/PerkLens.git
 cd PerkLens
-./gradlew assembleDebug
+./gradlew assembleRelease
 ```
 
 ---
