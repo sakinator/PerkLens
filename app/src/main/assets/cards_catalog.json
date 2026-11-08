@@ -1,0 +1,392 @@
+{
+  "cards": [
+    {
+      "id": "sbi_cashback",
+      "name": "SBI Cashback Credit Card",
+      "issuer": "State Bank of India",
+      "network": "Visa",
+      "joiningFee": 999,
+      "annualFee": 999,
+      "waiverSpendThreshold": 200000,
+      "isLifetimeFree": false,
+      "imageUrl": "https://www.sbicard.com/sbi-card-en/assets/media/images/personal/credit-cards/rewards/cashback-sbi-card/cashback-sbi-card-front.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/SBI-logo.svg/512px-SBI-logo.svg.png",
+      "cardGradientStart": "#005691",
+      "cardGradientEnd": "#00B4D8",
+      "rating": 4.8,
+      "loungeAccess": "No complimentary lounge access",
+      "forexMarkupPercent": 3.5,
+      "rewardType": "Direct Statement Credit Cashback",
+      "bestForCategory": "Online Shopping (General)",
+      "baseCashbackPercent": 1.0,
+      "merchantRules": [
+        { "category": "online_general", "cashbackPercent": 5.0, "monthlyCapInr": 5000 },
+        { "category": "amazon", "cashbackPercent": 5.0, "monthlyCapInr": 5000 },
+        { "category": "flipkart", "cashbackPercent": 5.0, "monthlyCapInr": 5000 },
+        { "category": "swiggy", "cashbackPercent": 5.0, "monthlyCapInr": 5000 },
+        { "category": "zomato", "cashbackPercent": 5.0, "monthlyCapInr": 5000 },
+        { "category": "blinkit", "cashbackPercent": 5.0, "monthlyCapInr": 5000 },
+        { "category": "myntra", "cashbackPercent": 5.0, "monthlyCapInr": 5000 },
+        { "category": "offline_general", "cashbackPercent": 1.0, "monthlyCapInr": null },
+        { "category": "fuel", "cashbackPercent": 0.0, "monthlyCapInr": 0 },
+        { "category": "utility", "cashbackPercent": 0.0, "monthlyCapInr": 0 }
+      ],
+      "affiliateOffers": [
+        { "portal": "CashKaro", "rewardAmountInr": 1500, "rewardType": "Amazon Voucher / Cash", "applyUrl": "https://cashkaro.com/refer/sbi-cashback", "portalLogoUrl": "https://logo.clearbit.com/cashkaro.com", "rating": "Best Value" },
+        { "portal": "EarnKaro", "rewardAmountInr": 1200, "rewardType": "Direct Bank Transfer", "applyUrl": "https://earnkaro.com/deals/sbi-cashback", "portalLogoUrl": "https://logo.clearbit.com/earnkaro.com", "rating": "Direct Bank" },
+        { "portal": "GoPaisa", "rewardAmountInr": 1350, "rewardType": "Paytm / Bank", "applyUrl": "https://gopaisa.com/cards/sbi-cashback", "portalLogoUrl": "https://logo.clearbit.com/gopaisa.com", "rating": "Good" }
+      ]
+    },
+    {
+      "id": "hdfc_millennia",
+      "name": "HDFC Millennia Credit Card",
+      "issuer": "HDFC Bank",
+      "network": "Mastercard / Visa",
+      "joiningFee": 1000,
+      "annualFee": 1000,
+      "waiverSpendThreshold": 100000,
+      "isLifetimeFree": false,
+      "imageUrl": "https://www.hdfcbank.com/content/api/contentstream-id/723fb80a-2dde-42a3-9793-7ae1be57c87f/297ddfb4-7ba8-4cbb-94b2-299f1fa44dc7/Personal/Pay/Cards/Credit%20Card/Credit%20Card%20Landing%20Page/Credit%20Cards/Millennia-CC-264-x-167.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HDFC_Bank_Logo.svg/512px-HDFC_Bank_Logo.svg.png",
+      "cardGradientStart": "#002D62",
+      "cardGradientEnd": "#006699",
+      "rating": 4.6,
+      "loungeAccess": "1 complimentary domestic lounge per calendar quarter on ₹1L spend",
+      "forexMarkupPercent": 3.5,
+      "rewardType": "CashPoints (1 CP = ₹1 for statement credit)",
+      "bestForCategory": "Amazon, Flipkart & Food Delivery",
+      "baseCashbackPercent": 1.0,
+      "merchantRules": [
+        { "category": "amazon", "cashbackPercent": 5.0, "monthlyCapInr": 1000 },
+        { "category": "flipkart", "cashbackPercent": 5.0, "monthlyCapInr": 1000 },
+        { "category": "swiggy", "cashbackPercent": 5.0, "monthlyCapInr": 1000 },
+        { "category": "zomato", "cashbackPercent": 5.0, "monthlyCapInr": 1000 },
+        { "category": "myntra", "cashbackPercent": 5.0, "monthlyCapInr": 1000 },
+        { "category": "tata_neu", "cashbackPercent": 5.0, "monthlyCapInr": 1000 },
+        { "category": "online_general", "cashbackPercent": 1.0, "monthlyCapInr": 1000 },
+        { "category": "offline_general", "cashbackPercent": 1.0, "monthlyCapInr": 1000 }
+      ],
+      "affiliateOffers": [
+        { "portal": "CashKaro", "rewardAmountInr": 1200, "rewardType": "Amazon Voucher", "applyUrl": "https://cashkaro.com/refer/hdfc-millennia", "portalLogoUrl": "https://logo.clearbit.com/cashkaro.com", "rating": "Best Value" },
+        { "portal": "EarnKaro", "rewardAmountInr": 1000, "rewardType": "Bank Cash", "applyUrl": "https://earnkaro.com/deals/hdfc-millennia", "portalLogoUrl": "https://logo.clearbit.com/earnkaro.com", "rating": "Standard" },
+        { "portal": "GoPaisa", "rewardAmountInr": 1100, "rewardType": "Cashback", "applyUrl": "https://gopaisa.com/cards/hdfc-millennia", "portalLogoUrl": "https://logo.clearbit.com/gopaisa.com", "rating": "Good" }
+      ]
+    },
+    {
+      "id": "axis_airtel",
+      "name": "Airtel Axis Bank Credit Card",
+      "issuer": "Axis Bank",
+      "network": "Mastercard / Visa",
+      "joiningFee": 500,
+      "annualFee": 500,
+      "waiverSpendThreshold": 200000,
+      "isLifetimeFree": false,
+      "imageUrl": "https://www.axisbank.com/images/default-source/revamp/cards/airtel-axis-bank-credit-card.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Axis_Bank_logo.svg/512px-Axis_Bank_logo.svg.png",
+      "cardGradientStart": "#E60000",
+      "cardGradientEnd": "#8B0000",
+      "rating": 4.9,
+      "loungeAccess": "4 complimentary domestic lounge visits per year",
+      "forexMarkupPercent": 3.5,
+      "rewardType": "Direct Statement Credit Cashback",
+      "bestForCategory": "Recharge, Utilities & Swiggy/Zomato",
+      "baseCashbackPercent": 1.0,
+      "merchantRules": [
+        { "category": "airtel_recharge", "cashbackPercent": 25.0, "monthlyCapInr": 250 },
+        { "category": "utility", "cashbackPercent": 10.0, "monthlyCapInr": 250 },
+        { "category": "swiggy", "cashbackPercent": 10.0, "monthlyCapInr": 500 },
+        { "category": "zomato", "cashbackPercent": 10.0, "monthlyCapInr": 500 },
+        { "category": "bigbasket", "cashbackPercent": 10.0, "monthlyCapInr": 500 },
+        { "category": "online_general", "cashbackPercent": 1.0, "monthlyCapInr": null },
+        { "category": "offline_general", "cashbackPercent": 1.0, "monthlyCapInr": null }
+      ],
+      "affiliateOffers": [
+        { "portal": "CashKaro", "rewardAmountInr": 1000, "rewardType": "Cashback", "applyUrl": "https://cashkaro.com/refer/axis-airtel", "portalLogoUrl": "https://logo.clearbit.com/cashkaro.com", "rating": "Best Value" },
+        { "portal": "EarnKaro", "rewardAmountInr": 850, "rewardType": "Bank Cash", "applyUrl": "https://earnkaro.com/deals/axis-airtel", "portalLogoUrl": "https://logo.clearbit.com/earnkaro.com", "rating": "Direct Bank" },
+        { "portal": "GoPaisa", "rewardAmountInr": 900, "rewardType": "Cashback", "applyUrl": "https://gopaisa.com/cards/axis-airtel", "portalLogoUrl": "https://logo.clearbit.com/gopaisa.com", "rating": "Good" }
+      ]
+    },
+    {
+      "id": "icici_amazon_pay",
+      "name": "Amazon Pay ICICI Credit Card",
+      "issuer": "ICICI Bank",
+      "network": "Visa",
+      "joiningFee": 0,
+      "annualFee": 0,
+      "waiverSpendThreshold": 0,
+      "isLifetimeFree": true,
+      "imageUrl": "https://www.icicibank.com/content/dam/icicibank/india/managed-assets/images/personal-banking/cards/credit-cards/amazon-pay-credit-card-d.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/512px-ICICI_Bank_Logo.svg.png",
+      "cardGradientStart": "#232F3E",
+      "cardGradientEnd": "#FF9900",
+      "rating": 4.7,
+      "loungeAccess": "No complimentary lounge access",
+      "forexMarkupPercent": 3.5,
+      "rewardType": "Amazon Pay Balance (1 pt = ₹1, Auto-credited)",
+      "bestForCategory": "Amazon Prime Ecosystem & Lifetime Free",
+      "baseCashbackPercent": 1.0,
+      "merchantRules": [
+        { "category": "amazon_prime", "cashbackPercent": 5.0, "monthlyCapInr": null },
+        { "category": "amazon", "cashbackPercent": 3.0, "monthlyCapInr": null },
+        { "category": "flight", "cashbackPercent": 2.0, "monthlyCapInr": null },
+        { "category": "utility", "cashbackPercent": 2.0, "monthlyCapInr": null },
+        { "category": "online_general", "cashbackPercent": 1.0, "monthlyCapInr": null },
+        { "category": "offline_general", "cashbackPercent": 1.0, "monthlyCapInr": null }
+      ],
+      "affiliateOffers": [
+        { "portal": "CashKaro", "rewardAmountInr": 350, "rewardType": "Amazon Voucher", "applyUrl": "https://cashkaro.com/refer/icici-amazon-pay", "portalLogoUrl": "https://logo.clearbit.com/cashkaro.com", "rating": "LTF Bonus" },
+        { "portal": "EarnKaro", "rewardAmountInr": 300, "rewardType": "Bank Transfer", "applyUrl": "https://earnkaro.com/deals/icici-amazon-pay", "portalLogoUrl": "https://logo.clearbit.com/earnkaro.com", "rating": "Standard" }
+      ]
+    },
+    {
+      "id": "tata_neu_infinity",
+      "name": "Tata Neu Infinity HDFC Credit Card",
+      "issuer": "HDFC Bank",
+      "network": "RuPay / Visa",
+      "joiningFee": 1499,
+      "annualFee": 1499,
+      "waiverSpendThreshold": 300000,
+      "isLifetimeFree": false,
+      "imageUrl": "https://www.tataneu.com/assets/images/tata-neu-infinity-hdfc-bank-credit-card.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HDFC_Bank_Logo.svg/512px-HDFC_Bank_Logo.svg.png",
+      "cardGradientStart": "#4A0072",
+      "cardGradientEnd": "#8E24AA",
+      "rating": 4.8,
+      "loungeAccess": "8 domestic lounge visits + 4 international lounge visits via Priority Pass",
+      "forexMarkupPercent": 2.0,
+      "rewardType": "NeuCoins (1 NeuCoin = ₹1 across Tata Brands)",
+      "bestForCategory": "RuPay UPI & Tata Ecosystem (BigBasket, Croma, 1mg)",
+      "baseCashbackPercent": 1.5,
+      "merchantRules": [
+        { "category": "tata_neu", "cashbackPercent": 10.0, "monthlyCapInr": null },
+        { "category": "croma", "cashbackPercent": 10.0, "monthlyCapInr": null },
+        { "category": "bigbasket", "cashbackPercent": 10.0, "monthlyCapInr": null },
+        { "category": "rupay_upi", "cashbackPercent": 1.5, "monthlyCapInr": 500 },
+        { "category": "online_general", "cashbackPercent": 1.5, "monthlyCapInr": null },
+        { "category": "offline_general", "cashbackPercent": 1.5, "monthlyCapInr": null }
+      ],
+      "affiliateOffers": [
+        { "portal": "CashKaro", "rewardAmountInr": 1500, "rewardType": "Amazon Voucher", "applyUrl": "https://cashkaro.com/refer/tata-neu-infinity", "portalLogoUrl": "https://logo.clearbit.com/cashkaro.com", "rating": "Best Value" },
+        { "portal": "EarnKaro", "rewardAmountInr": 1300, "rewardType": "Bank Cash", "applyUrl": "https://earnkaro.com/deals/tata-neu-infinity", "portalLogoUrl": "https://logo.clearbit.com/earnkaro.com", "rating": "Good" }
+      ]
+    },
+    {
+      "id": "hsbc_live_plus",
+      "name": "HSBC Live+ Credit Card",
+      "issuer": "HSBC",
+      "network": "Visa",
+      "joiningFee": 999,
+      "annualFee": 999,
+      "waiverSpendThreshold": 200000,
+      "isLifetimeFree": false,
+      "imageUrl": "https://www.hsbc.co.in/content/dam/hsbc/in/images/credit-cards/live-plus-card.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/HSBC_logo_%282018%29.svg/512px-HSBC_logo_%282018%29.svg.png",
+      "cardGradientStart": "#DB0011",
+      "cardGradientEnd": "#4A4A4A",
+      "rating": 4.7,
+      "loungeAccess": "4 complimentary domestic airport lounges per year",
+      "forexMarkupPercent": 3.5,
+      "rewardType": "Direct Statement Credit Cashback",
+      "bestForCategory": "Dining, Food Delivery & Groceries (10% Cashback)",
+      "baseCashbackPercent": 1.5,
+      "merchantRules": [
+        { "category": "dining", "cashbackPercent": 10.0, "monthlyCapInr": 1000 },
+        { "category": "swiggy", "cashbackPercent": 10.0, "monthlyCapInr": 1000 },
+        { "category": "zomato", "cashbackPercent": 10.0, "monthlyCapInr": 1000 },
+        { "category": "grocery", "cashbackPercent": 10.0, "monthlyCapInr": 1000 },
+        { "category": "blinkit", "cashbackPercent": 10.0, "monthlyCapInr": 1000 },
+        { "category": "online_general", "cashbackPercent": 1.5, "monthlyCapInr": null },
+        { "category": "offline_general", "cashbackPercent": 1.5, "monthlyCapInr": null }
+      ],
+      "affiliateOffers": [
+        { "portal": "CashKaro", "rewardAmountInr": 1800, "rewardType": "Cashback", "applyUrl": "https://cashkaro.com/refer/hsbc-live-plus", "portalLogoUrl": "https://logo.clearbit.com/cashkaro.com", "rating": "Highest Payout" },
+        { "portal": "EarnKaro", "rewardAmountInr": 1500, "rewardType": "Bank Cash", "applyUrl": "https://earnkaro.com/deals/hsbc-live-plus", "portalLogoUrl": "https://logo.clearbit.com/earnkaro.com", "rating": "Direct Bank" }
+      ]
+    },
+    {
+      "id": "scapia_federal",
+      "name": "Scapia Federal Credit Card",
+      "issuer": "Federal Bank",
+      "network": "Visa",
+      "joiningFee": 0,
+      "annualFee": 0,
+      "waiverSpendThreshold": 0,
+      "isLifetimeFree": true,
+      "imageUrl": "https://www.scapia.cards/static/media/card_visual.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Federal_Bank_Logo.svg/512px-Federal_Bank_Logo.svg.png",
+      "cardGradientStart": "#1C3144",
+      "cardGradientEnd": "#007E8A",
+      "rating": 4.6,
+      "loungeAccess": "Unlimited domestic airport lounge access on ₹5,000 spend",
+      "forexMarkupPercent": 0.0,
+      "rewardType": "Scapia Coins (5 coins = ₹1 on flight/hotel bookings)",
+      "bestForCategory": "Zero Forex & Easy Lounge Access (LTF)",
+      "baseCashbackPercent": 2.0,
+      "merchantRules": [
+        { "category": "travel", "cashbackPercent": 4.0, "monthlyCapInr": null },
+        { "category": "flight", "cashbackPercent": 4.0, "monthlyCapInr": null },
+        { "category": "hotel", "cashbackPercent": 4.0, "monthlyCapInr": null },
+        { "category": "online_general", "cashbackPercent": 2.0, "monthlyCapInr": null },
+        { "category": "offline_general", "cashbackPercent": 2.0, "monthlyCapInr": null }
+      ],
+      "affiliateOffers": [
+        { "portal": "CashKaro", "rewardAmountInr": 500, "rewardType": "Amazon Voucher", "applyUrl": "https://cashkaro.com/refer/scapia", "portalLogoUrl": "https://logo.clearbit.com/cashkaro.com", "rating": "Zero Forex Bonus" },
+        { "portal": "EarnKaro", "rewardAmountInr": 450, "rewardType": "Bank Cash", "applyUrl": "https://earnkaro.com/deals/scapia", "portalLogoUrl": "https://logo.clearbit.com/earnkaro.com", "rating": "Standard" }
+      ]
+    },
+    {
+      "id": "axis_atlas",
+      "name": "Axis Atlas Credit Card",
+      "issuer": "Axis Bank",
+      "network": "Visa",
+      "joiningFee": 5000,
+      "annualFee": 5000,
+      "waiverSpendThreshold": 1500000,
+      "isLifetimeFree": false,
+      "imageUrl": "https://www.axisbank.com/images/default-source/revamp/cards/atlas-credit-card.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Axis_Bank_logo.svg/512px-Axis_Bank_logo.svg.png",
+      "cardGradientStart": "#1A1A1A",
+      "cardGradientEnd": "#B8860B",
+      "rating": 4.9,
+      "loungeAccess": "Up to 18 domestic lounges + 12 international lounges via tiers",
+      "forexMarkupPercent": 3.5,
+      "rewardType": "EDGE Miles (1 EDGE Mile = 2 Airline/Hotel Miles)",
+      "bestForCategory": "Luxury Travel & Airline Miles",
+      "baseCashbackPercent": 4.0,
+      "merchantRules": [
+        { "category": "flight", "cashbackPercent": 10.0, "monthlyCapInr": null },
+        { "category": "hotel", "cashbackPercent": 10.0, "monthlyCapInr": null },
+        { "category": "online_general", "cashbackPercent": 4.0, "monthlyCapInr": null },
+        { "category": "offline_general", "cashbackPercent": 4.0, "monthlyCapInr": null }
+      ],
+      "affiliateOffers": [
+        { "portal": "EarnKaro", "rewardAmountInr": 2200, "rewardType": "Direct Bank Cash", "applyUrl": "https://earnkaro.com/deals/axis-atlas", "portalLogoUrl": "https://logo.clearbit.com/earnkaro.com", "rating": "Top Tier" },
+        { "portal": "CashKaro", "rewardAmountInr": 2000, "rewardType": "Amazon Gift Voucher", "applyUrl": "https://cashkaro.com/refer/axis-atlas", "portalLogoUrl": "https://logo.clearbit.com/cashkaro.com", "rating": "Best Value" }
+      ]
+    },
+    {
+      "id": "onecard_metal",
+      "name": "OneCard Metal Credit Card",
+      "issuer": "Federal / SBM / BoB",
+      "network": "Visa",
+      "joiningFee": 0,
+      "annualFee": 0,
+      "waiverSpendThreshold": 0,
+      "isLifetimeFree": true,
+      "imageUrl": "https://www.getonecard.app/images/metal_card_front.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Federal_Bank_Logo.svg/512px-Federal_Bank_Logo.svg.png",
+      "cardGradientStart": "#2B2D42",
+      "cardGradientEnd": "#8D99AE",
+      "rating": 4.4,
+      "loungeAccess": "Available on select partner airport lounges",
+      "forexMarkupPercent": 1.0,
+      "rewardType": "Reward Points (10 pts = ₹1, 5X on top 2 categories)",
+      "bestForCategory": "Metal Card Experience & Low 1% Forex (LTF)",
+      "baseCashbackPercent": 0.2,
+      "merchantRules": [
+        { "category": "online_general", "cashbackPercent": 1.0, "monthlyCapInr": null },
+        { "category": "offline_general", "cashbackPercent": 0.2, "monthlyCapInr": null }
+      ],
+      "affiliateOffers": [
+        { "portal": "CashKaro", "rewardAmountInr": 700, "rewardType": "Amazon Voucher", "applyUrl": "https://cashkaro.com/refer/onecard", "portalLogoUrl": "https://logo.clearbit.com/cashkaro.com", "rating": "Easy Approval" },
+        { "portal": "EarnKaro", "rewardAmountInr": 600, "rewardType": "Bank Cash", "applyUrl": "https://earnkaro.com/deals/onecard", "portalLogoUrl": "https://logo.clearbit.com/earnkaro.com", "rating": "Standard" }
+      ]
+    },
+    {
+      "id": "amex_platinum_travel",
+      "name": "American Express Platinum Travel",
+      "issuer": "American Express",
+      "network": "Amex",
+      "joiningFee": 3500,
+      "annualFee": 5000,
+      "waiverSpendThreshold": 0,
+      "isLifetimeFree": false,
+      "imageUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/platinum-travel.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/512px-American_Express_logo_%282018%29.svg.png",
+      "cardGradientStart": "#1A365D",
+      "cardGradientEnd": "#2B6CB0",
+      "rating": 4.8,
+      "loungeAccess": "8 complimentary domestic lounge visits per year",
+      "forexMarkupPercent": 3.5,
+      "rewardType": "MR Points + ₹10,000 Taj Stay Voucher on ₹4L spend",
+      "bestForCategory": "Milestone Spends (Spend ₹4L = Get ₹36k Return)",
+      "baseCashbackPercent": 1.5,
+      "merchantRules": [
+        { "category": "flight", "cashbackPercent": 9.0, "monthlyCapInr": null },
+        { "category": "online_general", "cashbackPercent": 1.5, "monthlyCapInr": null },
+        { "category": "offline_general", "cashbackPercent": 1.5, "monthlyCapInr": null }
+      ],
+      "affiliateOffers": [
+        { "portal": "CashKaro", "rewardAmountInr": 2500, "rewardType": "Amazon Voucher", "applyUrl": "https://cashkaro.com/refer/amex-plat-travel", "portalLogoUrl": "https://logo.clearbit.com/cashkaro.com", "rating": "Premium Bonus" },
+        { "portal": "GoPaisa", "rewardAmountInr": 2200, "rewardType": "Cashback", "applyUrl": "https://gopaisa.com/cards/amex-plat-travel", "portalLogoUrl": "https://logo.clearbit.com/gopaisa.com", "rating": "Good" }
+      ]
+    }
+  ],
+  "liveOffers": [
+    {
+      "id": "off_swiggy_hdfc",
+      "title": "Flat ₹100 Off on Swiggy Orders",
+      "brand": "Swiggy",
+      "bank": "HDFC Bank",
+      "discountSummary": "15% off up to ₹100 on orders above ₹499",
+      "couponCode": "HDFC100",
+      "category": "Dining & Food Delivery",
+      "validTill": "30 Nov 2026",
+      "terms": "Valid once per user per week on all HDFC credit cards",
+      "brandLogoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/1/12/Swiggy_logo.svg/512px-Swiggy_logo.svg.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HDFC_Bank_Logo.svg/512px-HDFC_Bank_Logo.svg.png"
+    },
+    {
+      "id": "off_amazon_sbi",
+      "title": "10% Instant Discount on Amazon Great Indian Days",
+      "brand": "Amazon",
+      "bank": "SBI Card",
+      "discountSummary": "10% instant discount up to ₹1,500 on electronics & mobiles",
+      "couponCode": "AUTO-APPLIED",
+      "category": "Electronics & Shopping",
+      "validTill": "15 Dec 2026",
+      "terms": "Minimum cart value ₹5,000. Applicable on all SBI credit cards (except corporate)",
+      "brandLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/512px-Amazon_logo.svg.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/SBI-logo.svg/512px-SBI-logo.svg.png"
+    },
+    {
+      "id": "off_bms_icici",
+      "title": "Buy 1 Get 1 Free on BookMyShow",
+      "brand": "BookMyShow",
+      "bank": "ICICI Bank",
+      "discountSummary": "Up to ₹250 off on 2nd movie ticket",
+      "couponCode": "ICICIBOGO",
+      "category": "Movies & Entertainment",
+      "validTill": "31 Dec 2026",
+      "terms": "Valid twice a month on ICICI Sapphiro, Coral, and Rubyx cards",
+      "brandLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/BookMyShow_logo.svg/512px-BookMyShow_logo.svg.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/512px-ICICI_Bank_Logo.svg.png"
+    },
+    {
+      "id": "off_zomato_airtel",
+      "title": "Additional 10% Cashback on Zomato Dining",
+      "brand": "Zomato",
+      "bank": "Axis Bank (Airtel)",
+      "discountSummary": "10% statement cashback up to ₹500/month",
+      "couponCode": "AUTO-CREDIT",
+      "category": "Dining & Food Delivery",
+      "validTill": "Ongoing",
+      "terms": "No minimum transaction amount. Automatically calculated on monthly statement",
+      "brandLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Zomato_logo.png/512px-Zomato_logo.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Axis_Bank_logo.svg/512px-Axis_Bank_logo.svg.png"
+    },
+    {
+      "id": "off_mmt_axis",
+      "title": "Flat 12% Off on Domestic Flights via MakeMyTrip",
+      "brand": "MakeMyTrip",
+      "bank": "Axis Bank",
+      "discountSummary": "Flat 12% off up to ₹1,800 on flight bookings",
+      "couponCode": "MMTAXIS",
+      "category": "Flights & Travel",
+      "validTill": "28 Feb 2027",
+      "terms": "Every Wednesday and Saturday on all Axis credit cards",
+      "brandLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/MakeMyTrip_Logo.png/512px-MakeMyTrip_Logo.png",
+      "bankLogoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Axis_Bank_logo.svg/512px-Axis_Bank_logo.svg.png"
+    }
+  ]
+}
